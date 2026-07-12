@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bizning Menyu</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8f9fa; color: #333; padding: 40px 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* Sarlavha va Telefon raqami */
+        h1 { text-align: center; font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
+        .phone-number { text-align: center; margin-bottom: 40px; color: #e67e22; font-weight: bold; font-size: 1.1rem; }
+
+        /* 4 talik Setka */
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 24px;
+            padding: 10px 0;
+        }
+
+        /* Kartochka: Balandligi aniq teng bo'lishi uchun height: 100% va flex berildi */
+        .menu-card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Hammasi teng uzunlikda bo'ladi */
+        }
+
+        .menu-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Rasmlarni bir xil kvadrat qilish va to'ldirish */
+        .card-image-wrapper {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            position: relative;
+            background-color: #f8f9fa;
+            overflow: hidden;
+        }
+
+        .card-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Tikka rasmlarni ham kvadratga chiroyli moslaydi */
+            object-position: center;
+        }
+
+        .no-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* Matn qismi */
+        .card-content {
+            padding: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1; /* Kontent kam bo'lsa ham tugmalarni tekislaydi */
+        }
+
+        .food-name {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: #222;
+            text-transform: uppercase;
+            min-height: 40px; /* Ism uzun bo'lsa ham qator buzilmaydi */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .price-label {
+            margin: 0;
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .food-price {
+            margin: 4px 0 0 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: #e67e22;
+        }
+
+        /* Mobil qurilmalar uchun moslashuvchanlik */
+        @media (max-width: 992px) { .menu-container { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        @media (max-width: 576px) { .menu-container { grid-template-columns: repeat(1, minmax(0, 1fr)); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bizning DO'STLIK OSHXONASI Menyusi</h1>
+        <p class="phone-number">Murojaat uchun tel: +998917570577</p>
+<div class="menu-container">
+            {% for menyu in menyular %}
+            <a href="{% url 'menu_detail' menyu.id %}" class="menu-card">
+                <div class="card-image-wrapper">
+                    {% if menyu.image %}
+                        <img src="{{ menyu.image.url }}" alt="{{ menyu.name }}">
+                    {% else %}
+                        <div class="no-image">Rasm mavjud emas</div>
+                    {% endif %}
+                </div>
+                <div class="card-content">
+                    <h3 class="food-name">{{ menyu.name }}</h3>
+                    <p class="price-label">Narxi</p>
+                    <p class="food-price">{{ menyu.price }} so'm</p>
+                </div>
+            </a>
+            {% empty %}
+                <p style="text-align: center; grid-column: 1/-1; color: #718096;">Hozircha menyuda taomlar yo'q.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
