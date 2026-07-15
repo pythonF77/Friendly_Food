@@ -1,4 +1,17 @@
-FROM ubuntu:latest
-LABEL authors="user"
+FROM python:3.11-slim
 
-ENTRYPOINT ["top", "-b"]
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=
+
+WORKDIR /app
+
+# PostgreSQL-ga ulanish uchun tizim paketlarini o'rnatamiz
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . /app/
