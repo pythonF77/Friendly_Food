@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-w5qy1lm$4c=%ytnqj=af+au+bmnx3v97ndrqj6$lj*c$(a0dy5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'dostlik_db',                       # pgAdmin-da ochgan baza nomingiz
         'USER': 'postgres',                         # Standart asosiy foydalanuvchi
         'PASSWORD': '1111',                         # Rasmdagi parolingiz
-        'HOST': '127.0.0.1',                        # Mahalliy manzil
+        'HOST': 'dostlik_postgres_container',       # Mahalliy manzil
         'PORT': '5432',                             # Standart port
     }
 }
