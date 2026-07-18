@@ -1,7 +1,6 @@
-from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 from .models import Menu  # Modelingizni chaqirib olamiz
-from django.contrib.auth.models import User
+
 def Home(request):
     menyular = Menu.objects.all()
 
