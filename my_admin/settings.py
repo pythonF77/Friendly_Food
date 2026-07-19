@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import dj_database_url
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -72,6 +73,10 @@ DATABASES = {
         default='postgres://dostlik_user:dostlik_password@db:5432/dostlik_db'
     )
 }
+
+# Aynan shu joyga (75-qatordan boshlab) qo'shasiz:
+if os.environ.get('DATABASE_URL'):
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 #
 # DATABASES = {
 #     'default': {
