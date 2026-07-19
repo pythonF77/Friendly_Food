@@ -1,138 +1,309 @@
-<!DOCTYPE html>
+[7/20/2026 12:53 AM] XUSANBOY/خسنبي: <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bizning Menyu</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f8f9fa; color: #333; padding: 40px 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Do'stlik Oshxonasi — Menyu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700;9..144,900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --clay: #c1521f;
+    --clay-light: #e8763c;
+    --olive: #2f3b26;
+    --olive-deep: #1c2417;
+    --saffron: #e8a33d;
+    --cream: #f7ede0;
+    --cream-dim: #ecdcc4;
+  }
 
-        /* Sarlavha va Telefon raqami */
-        h1 { text-align: center; font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; color: #1a1a1a; }
-        .phone-number { text-align: center; margin-bottom: 40px; color: #e67e22; font-weight: bold; font-size: 1.1rem; }
+  *{margin:0;padding:0;box-sizing:border-box;}
 
-        /* 4 talik Setka */
-        .menu-container {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 24px;
-            padding: 10px 0;
-        }
+  html{scroll-behavior:smooth;}
 
-        /* Kartochka: Balandligi aniq teng bo'lishi uchun height: 100% va flex berildi */
-        .menu-card {
-            background: #ffffff;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            text-decoration: none;
-            color: #333;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            height: 100%; /* Hammasi teng uzunlikda bo'ladi */
-        }
+  body{
+    font-family:'Manrope', sans-serif;
+    background:
+      radial-gradient(ellipse 900px 600px at 15% -5%, rgba(232,163,61,0.35), transparent 60%),
+      radial-gradient(ellipse 800px 700px at 100% 10%, rgba(193,82,31,0.45), transparent 55%),
+      radial-gradient(ellipse 700px 600px at 0% 100%, rgba(232,118,60,0.25), transparent 55%),
+      linear-gradient(160deg, var(--olive-deep) 0%, var(--olive) 55%, #24301c 100%);
+    background-attachment:fixed;
+    color: var(--cream);
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
 
-        .menu-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.03) 0, transparent 2px),
+      radial-gradient(circle at 70% 65%, rgba(255,255,255,0.025) 0, transparent 2px);
+    background-size: 60px 60px, 90px 90px;
+    pointer-events:none;
+    z-index:0;
+  }
 
-        /* Rasmlarni bir xil kvadrat qilish va to'ldirish */
-        .card-image-wrapper {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            position: relative;
-            background-color: #f8f9fa;
-            overflow: hidden;
-        }
+  .glow{
+    position:fixed;
+    border-radius:50%;
+    filter: blur(90px);
+    z-index:0;
+    pointer-events:none;
+  }
+  .glow-1{
+    width:420px;height:420px;
+    top:-120px; right:-100px;
+    background: radial-gradient(circle, rgba(232,163,61,0.55), transparent 70%);
+    animation: float1 14s ease-in-out infinite;
+  }
+  .glow-2{
+    width:380px;height:380px;
+    bottom:-100px; left:-120px;
+    background: radial-gradient(circle, rgba(193,82,31,0.5), transparent 70%);
+    animation: float2 16s ease-in-out infinite;
+  }
+  .glow-3{
+    width:300px;height:300px;
+    top:40%; left:50%;
+    background: radial-gradient(circle, rgba(232,118,60,0.25), transparent 70%);
+    animation: float3 18s ease-in-out infinite;
+  }
 
-        .card-image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Tikka rasmlarni ham kvadratga chiroyli moslaydi */
-            object-position: center;
-        }
+  @keyframes float1{
+    0%,100%{ transform: translate(0,0); }
+    50%{ transform: translate(-30px, 40px); }
+  }
+  @keyframes float2{
+    0%,100%{ transform: translate(0,0); }
+    50%{ transform: translate(40px, -30px); }
+  }
+  @keyframes float3{
+    0%,100%{ transform: translate(-50%,-50%) scale(1); }
+    50%{ transform: translate(-50%,-50%) scale(1.15); }
+  }
 
-        .no-image {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #888;
-            font-style: italic;
-        }
+  @media (prefers-reduced-motion: reduce){
+    .glow-1, .glow-2, .glow-3{ animation: none; }
+  }
 
-        /* Matn qismi */
-        .card-content {
-            padding: 16px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            flex-grow: 1; /* Kontent kam bo'lsa ham tugmalarni tekislaydi */
-        }
+  .wrap{
+    position:relative;
+    z-index:1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 24px 90px;
+  }
 
-        .food-name {
-            margin: 0 0 8px 0;
-            font-size: 16px;
-            font-weight: 700;
-            color: #222;
-            text-transform: uppercase;
-            min-height: 40px; /* Ism uzun bo'lsa ham qator buzilmaydi */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+  header{
+    text-align:center;
+    margin-bottom: 44px;
+  }
 
-        .price-label {
-            margin: 0;
-            font-size: 11px;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Manrope';
+    font-weight:700;
+    font-size:0.72rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color: var(--saffron);
+    background: rgba(232,163,61,0.12);
+    border: 1px solid rgba(232,163,61,0.35);
+    padding: 8px 18px;
+    border-radius: 999px;
+    margin-bottom: 28px;
+    opacity:0;
+    animation: riseIn 0.7s ease forwards;
+  }
+  .eyebrow::before, .eyebrow::after{
+    content:"";
+    width:5px;height:5px;
+    border-radius:50%;
+    background: var(--saffron);
+  }
 
-        .food-price {
-            margin: 4px 0 0 0;
-            font-size: 16px;
-            font-weight: 700;
-            color: #e67e22;
-        }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-optical-sizing: auto;
+    font-size: clamp(2.6rem, 9vw, 4.2rem);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    background: linear-gradient(100deg, #fff6ea 0%, var(--saffron) 45%, var(--clay-light) 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    opacity:0;
+    animation: riseIn 0.8s ease 0.15s forwards;
+  }
+[7/20/2026 12:53 AM] XUSANBOY/خسنبي: h1 em{
+    font-style: italic;
+    font-weight: 500;
+    display:block;
+    font-size: 0.5em;
+    background: linear-gradient(100deg, var(--cream) 0%, var(--cream-dim) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-top: 6px;
+    letter-spacing: 0.01em;
+  }
 
-        /* Mobil qurilmalar uchun moslashuvchanlik */
-        @media (max-width: 992px) { .menu-container { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-        @media (max-width: 576px) { .menu-container { grid-template-columns: repeat(1, minmax(0, 1fr)); } }
-    </style>
+  .contact{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-top: 30px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    background: linear-gradient(120deg, var(--clay), var(--clay-light));
+    box-shadow: 0 8px 30px rgba(193,82,31,0.4), inset 0 1px 0 rgba(255,255,255,0.25);
+    font-weight: 700;
+    font-size: 1.02rem;
+    text-decoration:none;
+    color: #fff6ea;
+    letter-spacing: 0.01em;
+    opacity:0;
+    animation: riseIn 0.8s ease 0.3s forwards;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .contact:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 12px 36px rgba(193,82,31,0.55), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+  .contact svg{ width:18px; height:18px; flex-shrink:0; }
+
+  .divider{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin: 48px 0 36px;
+    opacity:0;
+    animation: riseIn 0.8s ease 0.4s forwards;
+  }
+  .divider::before, .divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background: linear-gradient(90deg, transparent, rgba(232,163,61,0.5), transparent);
+  }
+  .divider span{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--saffron);
+    white-space: nowrap;
+  }
+
+  .menu-card{
+    background: linear-gradient(155deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+    border: 1px solid rgba(232,163,61,0.22);
+    border-radius: 24px;
+    padding: 56px 32px;
+    text-align:center;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    opacity:0;
+    animation: riseIn 0.8s ease 0.5s forwards;
+  }
+
+  .plate-icon{
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 22px;
+    opacity: 0.75;
+  }
+
+  .menu-card p{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: var(--cream-dim);
+    line-height: 1.5;
+  }
+
+  .menu-card small{
+    display:block;
+    margin-top: 14px;
+    font-family:'Manrope';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    color: rgba(247,237,224,0.55);
+  }
+
+  footer{
+    text-align:center;
+    margin-top: 48px;
+    opacity:0;
+    animation: riseIn 0.8s ease 0.6s forwards;
+  }
+
+  footer .tag{
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(247,237,224,0.4);
+    font-weight: 600;
+  }
+
+  @keyframes riseIn{
+    from{ opacity:0; transform: translateY(16px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  a:focus-visible, .contact:focus-visible{
+    outline: 2px solid var(--saffron);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 480px){
+    .wrap{ padding: 40px 18px 70px; }
+    .menu-card{ padding: 44px 22px; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Bizning DO'STLIK OSHXONASI Menyusi</h1>
-        <p class="phone-number">Murojat uchun tel: +99891 757 05 77</p>
-<div class="menu-container">
-            {% for menyu in menyular %}
-            <a href="{% url 'menu_detail' menyu.id %}" class="menu-card">
-                <div class="card-image-wrapper">
-                    {% if menyu.image %}
-                        <img src="{{ menyu.image.url }}" alt="{{ menyu.name }}">
-                    {% else %}
-                        <div class="no-image">Rasm mavjud emas</div>
-                    {% endif %}
-                </div>
-                <div class="card-content">
-                    <h3 class="food-name">{{ menyu.name }}</h3>
-                    <p class="price-label">Narxi</p>
-                    <p class="food-price">{{ menyu.price }} so'm</p>
-                </div>
-            </a>
-            {% empty %}
-                <p style="text-align: center; grid-column: 1/-1; color: #718096;">Hozircha menyuda taomlar yo'q.</p>
-            {% endfor %}
-        </div>
-    </div>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+<div class="glow glow-3"></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Milliy taomlar &amp; mehmondo'stlik</span>
+    <h1>Do'stlik<em>Oshxonasi menyusi</em></h1>
+
+    <a class="contact" href="tel:+998917570577">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      Murojat uchun: +998 91 757 05 77
+    </a>
+  </header>
+
+  <div class="divider"><span>Taomlar ro'yxati</span></div>
+[7/20/2026 12:53 AM] XUSANBOY/خسنبي: <section class="menu-card">
+    <svg class="plate-icon" viewBox="0 0 24 24" fill="none" stroke="#e8a33d" stroke-width="1.5">
+      <circle cx="12" cy="12" r="9"/>
+      <circle cx="12" cy="12" r="4.5"/>
+    </svg>
+    <p>Hozircha menyuda taomlar yo'q.</p>
+    <small>Tez orada mazali taomlarimiz bilan qaytamiz</small>
+  </section>
+
+  <footer>
+    <span class="tag">Do'stlik Oshxonasi &middot; 2026</span>
+  </footer>
+</div>
+
 </body>
 </html>

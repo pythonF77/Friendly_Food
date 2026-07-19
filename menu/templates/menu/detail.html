@@ -1,124 +1,15 @@
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ taom.name }} - Do'stlik Oshxonasi</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: #f4f6f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-
-        /* Oq rangdagi asosiy kartochka */
-        .detail-card {
-            background: #ffffff;
-            max-width: 550px;
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Rasm joylashadigan konteyner */
-        .image-container {
-            width: 100%;
-            height: 400px; /* Rasm uchun chiroyli balandlik */
-            border-radius: 14px;
-            overflow: hidden;
-            background-color: #f8f9fa; /* Rasm to'liq joylashganda bo'sh qolgan chekkalari mayin kulrang bo'ladi */
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* ENGMUHIM QISM: Rasmni kesmasdan, boricha (tepalarini ham) ko'rsatish */
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Rasmni aslo qirqmaydi, butunligicha oq qutiga sig'diradi! */
-        }
-
-        /* Nomi --------- Narxi qatori */
-        .info-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            margin-bottom: 30px;
-            padding: 0 5px;
-        }
-
-        .food-name {
-            font-size: 1.6rem;
-            color: #1a1a1a;
-            text-transform: uppercase;
-            font-weight: 800;
-            white-space: nowrap;
-        }
-
-        /* Nuqtali chiziq */
-        .line-filler {
-            flex-grow: 1;
-            border-bottom: 2px dotted #ccc;
-            margin: 0 15px;
-            position: relative;
-            top: 4px;
-        }
-
-        .food-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #e67e22;
-            white-space: nowrap;
-        }
-
-        /* Faqat strelka tugmasi */
-        .back-arrow-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 55px;
-            height: 55px;
-            background-color: #1a1a1a;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 50%;
-            font-size: 1.4rem;
-            font-weight: bold;
-            transition: background-color 0.2s, transform 0.2s;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .back-arrow-btn:hover {
-            background-color: #e67e22;
-            transform: scale(1.08);
-        }
-    </style>
-</head>
-<body>
-
-    <div class="detail-card">
-
-        <div class="image-container">
-            {% if taom.image %}
-                <img src="{{ taom.image.url }}" alt="{{ taom.name }}">
-            {% else %}
-                <div style="color: #aaa; font-style: italic;">Rasm mavjud emas</div>
-            {% endif %}
-        </div>
-
-        <div class="info-row">
-            <span class="food-name">{{ taom.name }}</span>
-            <div class="line-filler"></div>
-            <span class="food-price">{{ taom.price }} so'm</span>
-        </div>
-
-        <a href="{% url 'menu_home' %}" class="back-arrow-btn">⬅</a>
-
+<div class="dishes">
+{% for taom in taomlar %}
+  <div class="dish-card">
+    <div class="dish-img"><img src="{{ taom.rasm.url }}" alt="{{ taom.nomi }}"></div>
+    <div class="dish-body">
+      <span class="dish-name">{{ taom.nomi }}</span>
+      <span class="dish-price">{{ taom.narxi }} so'm</span>
     </div>
-
-</body>
-</html>
+  </div>
+{% empty %}
+  <section class="menu-card">
+    <p>Hozircha menyuda taomlar yo'q.</p>
+  </section>
+{% endfor %}
+</div>
