@@ -1,4 +1,4 @@
-[7/20/2026 11:23 AM] XUSANBOY/خسنبي: <!DOCTYPE html>
+[7/20/2026 11:32 AM] XUSANBOY/خسنبي: <!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
@@ -14,6 +14,7 @@
         }
 
         body {
+            /* Rasmdagi kabi chiroyli to'q yashil gradient fon */
             background: linear-gradient(135deg, #1f2d24 0%, #131c16 100%);
             min-height: 100vh;
             padding: 40px 20px;
@@ -22,149 +23,176 @@
             align-items: center;
         }
 
-        /* Asosiy katta sarlavha */
+        /* Tepadagi sarlavha qismi */
+        .header-section {
+            text-align: center;
+            margin-bottom: 35px;
+            width: 100%;
+            max-width: 800px;
+        }
+
         .main-title {
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             font-weight: 800;
             color: #ffffff;
             text-transform: uppercase;
-            text-align: center;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+            line-height: 1.2;
         }
 
-        /* Murojaat uchun yoki kichik sarlavha paneli */
-        .sub-bar {
+        /* Rasmdagi olovrang chiroyli telefon tugmasi */
+        .contact-btn {
+            display: inline-block;
             background: #ff7a45;
             color: #ffffff;
-            padding: 8px 30px;
+            padding: 10px 30px;
             border-radius: 25px;
             font-weight: 700;
             font-size: 1rem;
-            margin-bottom: 40px;
-            box-shadow: 0 8px 20px rgba(255, 122, 69, 0.2);
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(255, 122, 69, 0.3);
+            transition: all 0.25s ease;
         }
 
-        /* Taomlar setkasi (Grid) */
+        .contact-btn:hover {
+            background: #e05e2b;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(255, 122, 69, 0.4);
+        }
+
+        /* Taomlar ro'yxati (Grid) */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 25px;
             width: 100%;
             max-width: 1200px;
             padding: 10px;
         }
 
-        /* Har bir taom kartochkasi */
+        /* Shaffof va yumaloq premium kartochka */
         .menu-card {
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 24px;
-            padding: 20px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            text-decoration: none;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-decoration: none; /* Havola chizig'ini olib tashlaydi */
         }
 
         .menu-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             border-color: rgba(255, 122, 69, 0.3);
         }
 
-        /* Kartochka ichidagi rasm bloki */
+        /* Rasmdagi kabi burchaklari yumaloqlangan toza rasm konteyneri */
         .card-image {
             width: 100%;
-            height: 220px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 16px;
+            height: 200px;
+            border-radius: 18px;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.15);
             margin-bottom: 15px;
         }
 
         .card-image img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            padding: 10px;
+            object-fit: cover; /* Rasmni to'liq qutiga chiroyli to'ldiradi */
         }
 
-        /* Taom ma'lumotlari matni */
+        /* Taom nomi va narxi joylashgan pastki qism */
         .card-info {
             text-align: center;
+            padding: 5px 0 10px 0;
         }
 
         .card-name {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: #ffffff;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .price-box {
+            display: inline-block;
         }
 
         .price-label {
-            font-size: 0.75rem;
-            color: #a4b3a8;
+            font-size: 0.65rem;
+            color: #8c9c93;
             text-transform: uppercase;
             letter-spacing: 1px;
             display: block;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
-
-        .card-price {
-            font-size: 1.25rem;
+[7/20/2026 11:32 AM] XUSANBOY/خسنبي: .card-price {
+            font-size: 1.15rem;
             font-weight: 700;
-            color: #ff7a45;
+            color: #ff7a45; /* Olovrang chiroyli narx yozuvi */
         }
 
-        /* Telefonlar uchun moslashtirish */
-        @media (max-width: 600px) {
-            .main-title { font-size: 1.8rem; }
-            .menu-grid { grid-template-columns: 1fr; }
+        /* Telefon va planshetlar uchun ekran moslashuvchanligi */
+        @media (max-width: 768px) {
+            .main-title { font-size: 1.9rem; }
+            .menu-grid {
+                grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+                gap: 15px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Sarlavha qismi -->
-    <h1 class="main-title">Bizning Do'stlik Oshxonasi</h1>
-    <div class="sub-bar">Bizning Menyu</div>
-[7/20/2026 11:23 AM] XUSANBOY/خسنبي: <!-- Taomlar ro'yxati (Grid) -->
+    <!-- Sarlavha va Telefon tugmasi joylashgan blok -->
+    <div class="header-section">
+        <h1 class="main-title">Bizning Do'stlik Oshxonasi Menyu</h1>
+        <a href="tel:+998917570577" class="contact-btn">
+            Murojaat uchun tel: +998 91 757 05 77
+        </a>
+    </div>
+
+    <!-- Taomlar ro'yxati (Grid) -->
     <div class="menu-grid">
         {% for taom in taomlar %}
-            <!-- Har bir kartochkani bosganda detail sahifasiga o'tadigan havola -->
+            <!-- Har bir taom kartochkasi. Bosganda detail'ga o'tadi -->
             <a href="menu/{{ taom.id }}/" class="menu-card">
 
-                <!-- Taom rasmi -->
+                <!-- Rasm bloki -->
                 <div class="card-image">
                     {% if taom.image %}
                         <img src="{{ taom.image.url }}" alt="{{ taom.name }}">
                     {% else %}
-                        <div style="color: #617567; font-style: italic; font-size: 0.9rem;">Rasm yo'q</div>
+                        <div style="height: 100%; display: flex; align-items: center; justify-content: center; color: #5a6e60; font-style: italic; font-size: 0.9rem;">
+                            Rasm yo'q
+                        </div>
                     {% endif %}
                 </div>
 
-                <!-- Taom nomi va narxi -->
+                <!-- Ma'lumotlar bloki -->
                 <div class="card-info">
                     <h2 class="card-name">{{ taom.name }}</h2>
-                    <span class="price-label">Narxi</span>
-                    <span class="card-price">{{ taom.price }} so'm</span>
+                    <div class="price-box">
+                        <span class="price-label">NARXI</span>
+                        <span class="card-price">{{ taom.price }} so'm</span>
+                    </div>
                 </div>
 
             </a>
         {% empty %}
-            <p style="color: #a4b3a8; text-align: center; grid-column: 1/-1;">Hozircha menyuda taomlar mavjud emas.</p>
+            <p style="color: #a4b3a8; text-align: center; grid-column: 1/-1; font-style: italic; margin-top: 30px;">
+                Hozircha menyuda taomlar mavjud emas.
+            </p>
         {% endfor %}
     </div>
 
 </body>
 </html>
-Index html</html>
