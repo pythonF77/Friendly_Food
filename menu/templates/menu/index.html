@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+[7/20/2026 12:39 PM] XUSANBOY/خسنبي: <!DOCTYPE html>
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
@@ -93,7 +93,7 @@
   .wrap{
     position:relative;
     z-index:1;
-    max-width: 720px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 56px 24px 90px;
   }
@@ -131,9 +131,8 @@
   h1{
     font-family:'Fraunces', serif;
     font-weight:900;
-    font-optical-sizing: auto;
-    font-size: clamp(2.6rem, 9vw, 4.2rem);
-    line-height: 1.04;
+    font-size: clamp(2.4rem, 8vw, 3.8rem);
+    line-height: 1.1;
     letter-spacing: -0.02em;
     background: linear-gradient(100deg, #fff6ea 0%, var(--saffron) 45%, var(--clay-light) 80%);
     -webkit-background-clip: text;
@@ -142,11 +141,11 @@
     opacity:0;
     animation: riseIn 0.8s ease 0.15s forwards;
   }
-[7/20/2026 12:13 PM] XUSANBOY/خسنبي: h1 em{
+[7/20/2026 12:39 PM] XUSANBOY/خسنبي: h1 em{
     font-style: italic;
     font-weight: 500;
     display:block;
-    font-size: 0.5em;
+    font-size: 0.65em;
     background: linear-gradient(100deg, var(--cream) 0%, var(--cream-dim) 100%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -196,53 +195,96 @@
   .divider span{
     font-family:'Fraunces', serif;
     font-style: italic;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     color: var(--saffron);
     white-space: nowrap;
+  }
+
+  /* Taomlar Grid tizimi */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    width: 100%;
   }
 
   .menu-card{
     background: linear-gradient(155deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
     border: 1px solid rgba(232,163,61,0.22);
     border-radius: 24px;
-    padding: 56px 32px;
+    padding: 24px;
     text-align:center;
     backdrop-filter: blur(6px);
     box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-    opacity:0;
-    animation: riseIn 0.8s ease 0.5s forwards;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .menu-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--saffron);
+  }
+
+  .card-image-box {
+    width: 100%;
+    height: 200px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(0,0,0,0.2);
+    margin-bottom: 18px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .card-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .plate-icon{
     width: 54px;
     height: 54px;
-    margin: 0 auto 22px;
-    opacity: 0.75;
+    margin: auto;
+    opacity: 0.5;
   }
 
-  .menu-card p{
+  .menu-card h2{
+    font-family:'Fraunces', serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #ffffff;
+    line-height: 1.3;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .price-tag {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--saffron);
+    margin-top: 5px;
+  }
+
+  .no-data-card {
+    grid-column: 1 / -1;
+    padding: 56px 32px;
+  }
+
+  .no-data-card p {
     font-family:'Fraunces', serif;
     font-style: italic;
-    font-weight: 500;
     font-size: 1.25rem;
     color: var(--cream-dim);
-    line-height: 1.5;
-  }
-
-  .menu-card small{
-    display:block;
-    margin-top: 14px;
-    font-family:'Manrope';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 0.85rem;
-    letter-spacing: 0.02em;
-    color: rgba(247,237,224,0.55);
   }
 
   footer{
     text-align:center;
-    margin-top: 48px;
+    margin-top: 60px;
     opacity:0;
     animation: riseIn 0.8s ease 0.6s forwards;
   }
@@ -260,14 +302,9 @@
     to{ opacity:1; transform: translateY(0); }
   }
 
-  a:focus-visible, .contact:focus-visible{
-    outline: 2px solid var(--saffron);
-    outline-offset: 3px;
-  }
-
   @media (max-width: 480px){
     .wrap{ padding: 40px 18px 70px; }
-    .menu-card{ padding: 44px 22px; }
+    .menu-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -281,8 +318,7 @@
   <header>
     <span class="eyebrow">Milliy taomlar &amp; mehmondo'stlik</span>
     <h1>Do'stlik<em>Oshxonasi menyusi</em></h1>
-
-    <a class="contact" href="tel:+998917570577">
+[7/20/2026 12:39 PM] XUSANBOY/خسنبي: <a class="contact" href="tel:+998917570577">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
       </svg>
@@ -291,14 +327,39 @@
   </header>
 
   <div class="divider"><span>Taomlar ro'yxati</span></div>
-[7/20/2026 12:13 PM] XUSANBOY/خسنبي: <section class="menu-card">
-    <svg class="plate-icon" viewBox="0 0 24 24" fill="none" stroke="#e8a33d" stroke-width="1.5">
-      <circle cx="12" cy="12" r="9"/>
-      <circle cx="12" cy="12" r="4.5"/>
-    </svg>
-    <p>Hozircha menyuda taomlar yo'q.</p>
-    <small>Tez orada mazali taomlarimiz bilan qaytamiz</small>
-  </section>
+
+  <!-- MANA SHU YERDA GRID VA FOR TSIKLI BOSHLANDI -->
+  <div class="menu-grid">
+    {% for taom in menyular %}
+
+      <!-- Har bir taom kartochkasi. Bosilganda batafsil sahifaga o'tadi -->
+      <a class="menu-card" href="/menu/{{ taom.id }}/">
+        <div class="card-image-box">
+          {% if taom.image %}
+            <img src="{{ taom.image.url }}" alt="{{ taom.name }}">
+          {% else %}
+            <svg class="plate-icon" viewBox="0 0 24 24" fill="none" stroke="#e8a33d" stroke-width="1.5">
+              <circle cx="12" cy="12" r="9"/>
+              <circle cx="12" cy="12" r="4.5"/>
+            </svg>
+          {% endif %}
+        </div>
+        <h2>{{ taom.name }}</h2>
+        <div class="price-tag">{{ taom.price }} so'm</div>
+      </a>
+
+    {% empty %}
+      <!-- Agar ma'lumotlar kelmasa, shu bo'lim ishlaydi -->
+      <section class="menu-card no-data-card">
+        <svg class="plate-icon" viewBox="0 0 24 24" fill="none" stroke="#e8a33d" stroke-width="1.5">
+          <circle cx="12" cy="12" r="9"/>
+          <circle cx="12" cy="12" r="4.5"/>
+        </svg>
+        <p>Hozircha menyuda taomlar yo'q.</p>
+        <small>Tez orada mazali taomlarimiz bilan qaytamiz</small>
+      </section>
+    {% endfor %}
+  </div>
 
   <footer>
     <span class="tag">Do'stlik Oshxonasi &middot; 2026</span>
