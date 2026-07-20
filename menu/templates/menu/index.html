@@ -144,44 +144,45 @@
     </style>
 </head>
 <body>
-[7/20/2026 11:44 AM] XUSANBOY/خسنبي: <div class="header-section">
+<div class="header-section">
         <h1 class="main-title">Bizning Do'stlik Oshxonasi Menyu</h1>
         <a href="tel:+998917570577" class="contact-btn">
             Murojaat uchun tel: +998 91 757 05 77
         </a>
     </div>
 
-    <div class="menu-grid">
-        <!-- DIQQAT: views.py dagi 'menyular' o'zgaruvchisiga moslashtirildi -->
+ <div class="menu-grid">
         {% for taom in menyular %}
-            <!-- Bosilganda batafsil sahifaga o'tadigan havola (Detail funksiyangizga mos) -->
-            <a href="/menu/{{ taom.id }}/" class="menu-card">
+            <div class="menu-card">
 
-                <div class="card-image">
-                    {% if taom.image %}
-                        <img src="{{ taom.image.url }}" alt="{{ taom.name }}">
-                    {% else %}
-                        <div style="height: 100%; display: flex; align-items: center; justify-content: center; color: #5a6e60; font-style: italic; font-size: 0.9rem;">
-                            Rasm yo'q
-                        </div>
-                    {% endif %}
-                </div>
+                <!-- Rasm bloki va uning ustidagi havola -->
+                <a href="/menu/{{ taom.id }}/" class="card-image-link">
+                    <div class="card-image">
+                        {% if taom.image %}
+                            <img src="{{ taom.image.url }}" alt="{{ taom.name }}">
+                        {% else %}
+                            <div style="height: 100%; display: flex; align-items: center; justify-content: center; color: #5a6e60; font-style: italic; font-size: 0.9rem;">
+                                Rasm yo'q
+                            </div>
+                        {% endif %}
+                    </div>
+                </a>
 
+                <!-- Ma'lumotlar bloki -->
                 <div class="card-info">
-                    <h2 class="card-name">{{ taom.name }}</h2>
+                    <a href="/menu/{{ taom.id }}/" style="text-decoration: none;">
+                        <h2 class="card-name">{{ taom.name }}</h2>
+                    </a>
                     <div class="price-box">
                         <span class="price-label">NARXI</span>
                         <span class="card-price">{{ taom.price }} so'm</span>
                     </div>
                 </div>
 
-            </a>
+            </div>
         {% empty %}
             <p style="color: #a4b3a8; text-align: center; grid-column: 1/-1; font-style: italic; margin-top: 30px;">
                 Hozircha menyuda taomlar mavjud emas.
             </p>
         {% endfor %}
     </div>
-
-</body>
-</html>
