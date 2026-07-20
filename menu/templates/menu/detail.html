@@ -1,169 +1,166 @@
-<!DOCTYPE html>
+[7/20/2026 4:13 PM] XUSANBOY/خسنبي: <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ taom.name }} - Do'stlik Oshxonasi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ menyu.name }} - Do'stlik Oshxonasi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700;9..144,900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --clay: #c1521f;
+    --clay-light: #e8763c;
+    --olive: #2f3b26;
+    --olive-deep: #1c2417;
+    --saffron: #e8a33d;
+    --cream: #f7ede0;
+    --cream-dim: #ecdcc4;
+  }
 
-        body {
-            /* Bosh sahifangizdagi kabi to'q yashil ggradient fon */
-            background: linear-gradient(135deg, #1f2d24 0%, #131c16 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Manrope', sans-serif; }
 
-        /* Premium to'q yashil kartochka */
-        .detail-card {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            max-width: 480px;
-            width: 100%;
-            border-radius: 28px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+  body{
+    background:
+      radial-gradient(ellipse 900px 600px at 15% -5%, rgba(232,163,61,0.35), transparent 60%),
+      radial-gradient(ellipse 800px 700px at 100% 10%, rgba(193,82,31,0.45), transparent 55%),
+      radial-gradient(ellipse 700px 600px at 0% 100%, rgba(232,118,60,0.25), transparent 55%),
+      linear-gradient(160deg, var(--olive-deep) 0%, var(--olive) 55%, #24301c 100%);
+    background-attachment: fixed;
+    color: var(--cream);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
 
-        /* Rasm konteyneri - u ham quyuqroq yashil fonda */
-        .image-container {
-            width: 100%;
-            height: 340px;
-            border-radius: 20px;
-            overflow: hidden;
-            background-color: rgba(0, 0, 0, 0.2);
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
+  .detail-card{
+    width: 100%;
+    max-width: 460px;
+    background: linear-gradient(155deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+    border: 1px solid rgba(232,163,61,0.22);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
 
-        /* Rasmni kesmaydi, boricha qutiga sig'diradi */
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 10px; /* Chetlari yopishib qolmasligi uchun */
-        }
+  .detail-image{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: rgba(0,0,0,0.2);
+    overflow: hidden;
+  }
 
-        /* Taom ma'lumotlari qismi */
-        .info-container {
-            width: 100%;
-            text-align: center;
-            margin-bottom: 25px;
-        }
+  .detail-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
 
-        .food-name {
-            font-size: 1.8rem;
-            color: #ffffff;
-            text-transform: uppercase;
-            font-weight: 800;
-            margin-bottom: 12px;
-            letter-spacing: 0.5px;
-        }
+  .no-image{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: var(--cream-dim);
+    font-style: italic;
+    opacity: 0.6;
+  }
 
-        /* Narx turadigan chiroyli element */
-        .food-price {
-            display: inline-block;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #ff7a45; /* Bosh sahifadagi tugma rangi bilan bir xil olovrang-sarg'ish */
-            background: rgba(255, 122, 69, 0.1);
-            padding: 8px 20px;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 122, 69, 0.2);
-        }
+  .detail-body{
+    padding: 32px 28px 30px;
+    text-align: center;
+  }
 
-        /* Izoh yoki qisqacha matn uchun */
-        .food-desc {
-            font-size: 0.95rem;
-            color: #a4b3a8;
-            line-height: 1.5;
-            margin-top: 15px;
-            padding: 0 10px;
-        }
+  .detail-name{
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
 
-        /* Yumaloq va zamonaviy orqaga qaytish tugmasi */
-        .back-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 14px;
-            background: #ff7a45; /* Olovrang tugma */
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 16px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            transition: all 0.25s ease;
-            box-shadow: 0 8px 20px rgba(255, 122, 69, 0.25);
-        }
+  .price-label{
+    font-size: 11px;
+    color: rgba(247,237,224,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
 
-        .back-btn:hover {
-            background: #e05e2b;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(255, 122, 69, 0.35);
-        }
+  .detail-price{
+    display: inline-block;
+    font-size: 1.7rem;
+    font-weight: 800;
+    background: linear-gradient(100deg, var(--saffron), var(--clay-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 28px;
+  }
 
-        .back-btn svg {
-            margin-right: 8px;
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
-        /* Telefonlar uchun moslashtirish (Ekran kichrayganda rasm balandligi moslashadi) */
-        @media (max-width: 480px) {
-            .image-container {
-                height: 280px;
-            }
-            .food-name {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
+  .back-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 999px;
+    background: linear-gradient(120deg, var(--clay), var(--clay-light));
+    box-shadow: 0 8px 30px rgba(193,82,31,0.4), inset 0 1px 0 rgba(255,255,255,0.25);
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    color: #fff6ea;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .back-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 12px 36px rgba(193,82,31,0.55), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+  .back-btn svg{ width: 18px; height: 18px; }
+
+  @media (max-width: 480px){
+    .detail-body{ padding: 26px 20px 24px; }
+    .detail-name{ font-size: 1.35rem; }
+    .detail-price{ font-size: 1.5rem; }
+  }
+</style>
 </head>
 <body>
-    <div class="detail-card">
 
-        <div class="image-container">
-            {% if taom.image %}
-                <img src="{{ taom.image.url }}" alt="{{ taom.name }}">
-            {% else %}
-                <div style="color: #617567; font-style: italic;">Rasm mavjud emas</div>
-            {% endif %}
-        </div>
-
-        <div class="info-container">
-            <h1 class="food-name">{{ taom.name }}</h1>
-            <span class="food-price">{{ taom.price }} so'm</span>
-            <p class="food-desc"></p>
-        </div>
-
-        <!-- Orqaga qaytish olovrang chiroyli tugmasi -->
-        <a href="/" class="back-btn">
-            <svg viewBox="0 0 24 24">
-                <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.16L13.5,5.5L8,11H20Z"/>
-            </svg>
-            Menyoga qaytish
-        </a>
-
+  <div class="detail-card">
+    <div class="detail-image">
+      {% if menyu.image %}
+        <img src="{{ menyu.image.url }}" alt="{{ menyu.name }}">
+      {% else %}
+        <div class="no-image">Rasm mavjud emas</div>
+      {% endif %}
     </div>
+[7/20/2026 4:13 PM] XUSANBOY/خسنبي: <div class="detail-body">
+      <h1 class="detail-name">{{ menyu.name }}</h1>
+      <p class="price-label">Narxi</p>
+      <div class="detail-price">{{ menyu.price }} so'm</div>
+
+      <a href="{% url 'menu_list' %}" class="back-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Menyuga qaytish
+      </a>
+    </div>
+  </div>
 
 </body>
-</html>
+</html></html>
