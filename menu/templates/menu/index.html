@@ -318,7 +318,7 @@
   <header>
     <span class="eyebrow">Milliy taomlar &amp; mehmondo'stlik</span>
     <h1>Do'stlik<em>Oshxonasi menyusi</em></h1>
-[7/20/2026 12:39 PM] XUSANBOY/خسنبي: <a class="contact" href="tel:+998917570577">
+<a class="contact" href="tel:+998917570577">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
       </svg>
@@ -326,35 +326,40 @@
     </a>
   </header>
 
-  <div class="divider"><span>Taomlar ro'yxati</span></div>
-
-  <!-- MANA SHU YERDA GRID VA FOR TSIKLI BOSHLANDI -->
+  <!-- Taomlar Katalogi (Grid tizimi) -->
   <div class="menu-grid">
     {% for taom in menyular %}
 
-      <!-- Har bir taom kartochkasi. Bosilganda batafsil sahifaga o'tadi -->
+      <!-- Har bir taom kartochkasi -->
       <a class="menu-card" href="/menu/{{ taom.id }}/">
+
+        <!-- Rasm joylashadigan katalog qismi -->
         <div class="card-image-box">
           {% if taom.image %}
             <img src="{{ taom.image.url }}" alt="{{ taom.name }}">
           {% else %}
+            <!-- Rasm bo'lmasa likopcha ikonkasi chiqadi -->
             <svg class="plate-icon" viewBox="0 0 24 24" fill="none" stroke="#e8a33d" stroke-width="1.5">
               <circle cx="12" cy="12" r="9"/>
               <circle cx="12" cy="12" r="4.5"/>
             </svg>
           {% endif %}
         </div>
-        <h2>{{ taom.name }}</h2>
-        <div class="price-tag">{{ taom.price }} so'm</div>
+
+        <!-- Matnlar joylashadigan to'q yashil blok (Siz yuborgan rasmdagidek) -->
+        <div class="card-details">
+          <h2>{{ taom.name }}</h2>
+          <div class="price-section">
+            <span class="price-label">NARXI</span>
+            <div class="price-tag">{{ taom.price }} so'm</div>
+          </div>
+        </div>
+
       </a>
 
     {% empty %}
-      <!-- Agar ma'lumotlar kelmasa, shu bo'lim ishlaydi -->
-      <section class="menu-card no-data-card">
-        <svg class="plate-icon" viewBox="0 0 24 24" fill="none" stroke="#e8a33d" stroke-width="1.5">
-          <circle cx="12" cy="12" r="9"/>
-          <circle cx="12" cy="12" r="4.5"/>
-        </svg>
+      <!-- Agar ma'lumotlar bazada bo'lmasa -->
+      <section class="menu-card no-data-card" style="grid-column: 1/-1; padding: 40px; text-align: center;">
         <p>Hozircha menyuda taomlar yo'q.</p>
         <small>Tez orada mazali taomlarimiz bilan qaytamiz</small>
       </section>
