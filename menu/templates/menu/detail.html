@@ -1,123 +1,149 @@
-<!DOCTYPE html>
+[7/20/2026 8:57 AM] XUSANBOY/خسنبي: <!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ taom.name }} - Do'stlik Oshxonasi</title>
+    <title>{{ food.name }} - Do'stlik Oshxonasi</title>
+    <!-- Google Fonts inter shrifta ulanmoqda -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: #f4f6f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-
-        /* Oq rangdagi asosiy kartochka */
-        .detail-card {
-            background: #ffffff;
-            max-width: 550px;
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* Rasm joylashadigan konteyner */
-        .image-container {
-            width: 100%;
-            height: 400px; /* Rasm uchun chiroyli balandlik */
-            border-radius: 14px;
-            overflow: hidden;
-            background-color: #f8f9fa; /* Rasm to'liq joylashganda bo'sh qolgan chekkalari mayin kulrang bo'ladi */
-            margin-bottom: 24px;
+        body {
+            background: linear-gradient(135deg, #1e2a1e 0%, #121912 100%);
+            color: #ffffff;
+            min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        /* ENGMUHIM QISM: Rasmni kesmasdan, boricha (tepalarini ham) ko'rsatish */
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px rgba(255, 255, 255, 0.1) solid;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            padding-top: 75%; /* 4:3 formatdagi chiroyli nisbat */
+            background-color: #222;
+        }
+
         .image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Rasmni aslo qirqmaydi, butunligicha oq qutiga sig'diradi! */
+            object-fit: cover;
         }
 
-        /* Nomi --------- Narxi qatori */
-        .info-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            margin-bottom: 30px;
-            padding: 0 5px;
+        .details {
+            padding: 25px;
         }
 
-        .food-name {
-            font-size: 1.6rem;
-            color: #1a1a1a;
-            text-transform: uppercase;
-            font-weight: 800;
-            white-space: nowrap;
-        }
-
-        /* Nuqtali chiziq */
-        .line-filler {
-            flex-grow: 1;
-            border-bottom: 2px dotted #ccc;
-            margin: 0 15px;
-            position: relative;
-            top: 4px;
-        }
-
-        .food-price {
-            font-size: 1.5rem;
+        .food-title {
+            font-size: 24px;
             font-weight: 700;
-            color: #e67e22;
-            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            color: #ffffff;
         }
 
-        /* Faqat strelka tugmasi */
-        .back-arrow-btn {
+        .price-tag {
+            display: inline-block;
+            font-size: 20px;
+            font-weight: 700;
+            color: #f39c12; /* To'q sariq-oltin rang */
+            background: rgba(243, 156, 18, 0.1);
+            padding: 6px 14px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        /* Agar taom haqida tavsif (description) bo'lsa */
+        .description {
+            font-size: 15px;
+            color: #b3b3b3;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .back-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 55px;
-            height: 55px;
-            background-color: #1a1a1a;
-            color: #ffffff;
+            width: 100%;
+            background: #e67e22; /* Asosiy tugma rangi */
+            color: white;
             text-decoration: none;
-            border-radius: 50%;
-            font-size: 1.4rem;
-            font-weight: bold;
-            transition: background-color 0.2s, transform 0.2s;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 14px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
         }
 
-        .back-arrow-btn:hover {
-            background-color: #e67e22;
-            transform: scale(1.08);
+        .back-btn:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.4);
+        }
+
+        .back-btn svg {
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
         }
     </style>
 </head>
 <body>
 
-    <div class="detail-card">
-
+    <div class="container">
+        <!-- Taom rasmi -->
         <div class="image-container">
-            {% if taom.image %}
-                <img src="{{ taom.image.url }}" alt="{{ taom.name }}">
+            <!-- Django o'zgaruvchilaringizni o'z holicha qo'yasiz -->
+            <img src="{{ food.image.url }}" alt="{{ food.name }}">
+        </div>
+
+        <!-- Taom ma'lumotlari -->
+        <div class="details">
+            <h1 class="food-title">{{ food.name }}</h1>
+            <div class="price-tag">{{ food.price }} so'm</div>
+
+            {% if food.description %}
+            <p class="description">
+                {{ food.description }}
+            </p>
             {% else %}
-                <div style="color: #aaa; font-style: italic;">Rasm mavjud emas</div>
+            <p class="description">
+                Do'stlik oshxonasining eng sara va shirin taomlaridan biri. Mahalliy va yangi mahsulotlardan tayyorlangan.
+            </p>
             {% endif %}
+[7/20/2026 8:57 AM] XUSANBOY/خسنبي: <!-- Orqaga qaytish tugmasi (bosh sahifaga) -->
+            <a href="{% url 'menu' %}" class="back-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.16L13.5,5.5L8,11H20Z"/>
+                </svg>
+                Menyoga qaytish
+            </a>
         </div>
-
-        <div class="info-row">
-            <span class="food-name">{{ taom.name }}</span>
-            <div class="line-filler"></div>
-            <span class="food-price">{{ taom.price }} so'm</span>
-        </div>
-
-        <a href="{% url 'menu_home' %}" class="back-arrow-btn">⬅️</a>
-
     </div>
 
 </body>
