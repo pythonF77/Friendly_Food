@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+[7/20/2026 4:35 PM] XUSANBOY/خسنبي: <!DOCTYPE html>
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ menyu.name }} - Do'stlik Oshxonasi</title>
+<title>{{ taom.name }} - Do'stlik Oshxonasi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700;9..144,900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -142,16 +142,16 @@
 
   <div class="detail-card">
     <div class="detail-image">
-      {% if menyu.image %}
-        <img src="{{ menyu.image.url }}" alt="{{ menyu.name }}">
+      {% if taom.image %}
+        <img src="{{ taom.image.url }}" alt="{{ taom.name }}">
       {% else %}
         <div class="no-image">Rasm mavjud emas</div>
       {% endif %}
     </div>
- <div class="detail-body">
-      <h1 class="detail-name">{{ menyu.name }}</h1>
+[7/20/2026 4:35 PM] XUSANBOY/خسنبي: <div class="detail-body">
+      <h1 class="detail-name">{{ taom.name }}</h1>
       <p class="price-label">Narxi</p>
-      <div class="detail-price">{{ menyu.price }} so'm</div>
+      <div class="detail-price">{{ taom.price }} so'm</div>
 
       <a href="{% url 'menu_home' %}" class="back-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -163,4 +163,4 @@
   </div>
 
 </body>
-</html></html>
+</html>
