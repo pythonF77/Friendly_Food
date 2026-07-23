@@ -199,7 +199,7 @@
           {% if menyu.image %}
             <img src="{{ menyu.image.url }}" alt="{{ menyu.name }}">
           {% else %}
-            <div class="no-image">Rasm mavjud emas</div>
+            <img src="/media/menu_images/{{ menyu.name|slugify }}.jpg"alt="{{ menyu.name }}">
           {% endif %}
         </div>
         <div class="card-content">
