@@ -145,7 +145,7 @@
       {% if taom.image %}
         <img src="{{ taom.image.url }}" alt="{{ taom.name }}">
       {% else %}
-        <div class="no-image">Rasm mavjud emas</div>
+        <img src="/media/menu_images/{{ menyu.name|slugify }}.jpg"alt="{{ menyu.name }}">
       {% endif %}
     </div>
     <div class="detail-body">
