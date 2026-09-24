@@ -70,14 +70,11 @@ WSGI_APPLICATION = 'my_admin.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://dostlik_user:dostlik_password@db:5432/dostlik_db'
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
     )
 }
-
-# Aynan shu joyga (75-qatordan boshlab) qo'shasiz:
-if os.environ.get('DATABASE_URL'):
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-#
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',  # Toza Django backend nomi
