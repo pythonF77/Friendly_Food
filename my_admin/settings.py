@@ -67,15 +67,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'my_admin.wsgi.application'
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        conn_maxage=600,
-        conn_health_checks=True,
-    )
-}
-# DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}# DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',  # Toza Django backend nomi
 #         'NAME': 'dostlik_db',                       # pgAdmin-da ochgan baza nomingiz
