@@ -1,0 +1,1 @@
+web: gunicorn Friendly_Food.wsgi:application

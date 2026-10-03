@@ -4,8 +4,9 @@ charset-normalizer==3.4.9
 cloudinary==1.45.0
 dj-config-url==0.1.1
 dj-database-url==2.1.0
-Django==5.1.15
+Django==6.0.7
 django-cloudinary-storage==0.3.0
+django-qrcode==0.3
 gunicorn==22.0.0
 idna==3.18
 packaging==26.2
@@ -17,3 +18,4 @@ sqlparse==0.5.5
 typing_extensions==4.16.0
 tzdata==2026.3
 urllib3==2.7.0
+whitenoise==6.12.0
