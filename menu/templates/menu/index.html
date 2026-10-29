@@ -193,14 +193,16 @@
     <p class="phone-number"><a href="tel:+998917570577">Murojat uchun tel: +998 91 757 05 77</a></p>
 
     <div class="menu-container">
-      {% for menyu in menyular %}
-      <a href="{% url 'menu_detail' menyu.id %}" class="menu-card">
-        <div class="card-image-wrapper">
-          {% if menyu.image %}
-            <img src="{{ menyu.image.url }}" alt="{{ menyu.name }}">
-          {% else %}
-            <img src="/media/menu_images/{{ menyu.name|slugify }}.jpg"alt="{{ menyu.name }}">
-          {% endif %}
+      {% if menyu.image %}
+  <img
+    src="{{ menyu.image.url }}"
+    alt="{{ menyu.name }}"
+    onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
+  >
+  <div class="no-image" hidden>Rasm yuklanmadi</div>
+{% else %}
+  <div class="no-image">Rasm mavjud emas</div>
+{% endif %}
         </div>
         <div class="card-content">
           <h3 class="food-name">{{ menyu.name }}</h3>
