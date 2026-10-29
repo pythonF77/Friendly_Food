@@ -188,32 +188,31 @@
 </style>
 </head>
 <body>
-  <div class="container">
-    <h1>DO'STLIK OSHXONASI Menyusi</h1>
-    <p class="phone-number"><a href="tel:+998917570577">Murojat uchun tel: +998 91 757 05 77</a></p>
+  <div class="menu-container">
+  {% for menyu in menyular %}
+    <a href="{% url 'menu_detail' menyu.id %}" class="menu-card">
+      <div class="card-image-wrapper">
+        {% if menyu.image %}
+          <img
+            src="{{ menyu.image.url }}"
+            alt="{{ menyu.name }}"
+            onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
+          >
+          <div class="no-image" hidden>Rasm yuklanmadi</div>
+        {% else %}
+          <div class="no-image">Rasm mavjud emas</div>
+        {% endif %}
+      </div>
 
-    <div class="menu-container">
-      {% if menyu.image %}
-  <img
-    src="{{ menyu.image.url }}"
-    alt="{{ menyu.name }}"
-    onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
-  >
-  <div class="no-image" hidden>Rasm yuklanmadi</div>
-{% else %}
-  <div class="no-image">Rasm mavjud emas</div>
-{% endif %}
-        </div>
-        <div class="card-content">
-          <h3 class="food-name">{{ menyu.name }}</h3>
-          <p class="price-label">Narxi</p>
-          <p class="food-price">{{ menyu.price }} so'm</p>
-        </div>
-      </a>
-      {% empty %}
-        <p class="empty-state">Hozircha menyuda taomlar yo'q.</p>
-      {% endfor %}
-    </div>
-  </div>
+      <div class="card-content">
+        <h3 class="food-name">{{ menyu.name }}</h3>
+        <p class="price-label">Narxi</p>
+        <p class="food-price">{{ menyu.price }} so'm</p>
+      </div>
+    </a>
+  {% empty %}
+    <p class="empty-state">Hozircha menyuda taomlar yo'q.</p>
+  {% endfor %}
+</div>
 </body>
 </html>
