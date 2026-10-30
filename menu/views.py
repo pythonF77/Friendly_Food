@@ -1,7 +1,22 @@
-from django.shortcuts import render, get_object_or_404
+from uuid import uuid4
+
+from django import forms
+from django.contrib import messages
+from django.shortcuts import render, get_object_or_404, redirect
 from django.templatetags.static import static
 from django.utils.text import slugify
-from .models import Menu
+from .models import Menu, MenuComment, MenuReaction
+
+
+class MenuCommentForm(forms.ModelForm):
+    class Meta:
+        model = MenuComment
+        fields = ("name", "body")
+        labels = {"name": "Ismingiz", "body": "Fikringiz"}
+        widgets = {
+            "name": forms.TextInput(attrs={"placeholder": "Masalan, Dilnoza", "autocomplete": "name"}),
+            "body": forms.Textarea(attrs={"placeholder": "Taom haqida fikringizni yozing", "rows": 4, "maxlength": 1200}),
+        }
 
 
 MENU_IMAGE_FALLBACKS = {
@@ -42,4 +57,41 @@ def Home(request):
 def Menu_detail(request, pk):
     taom = get_object_or_404(Menu, pk=pk)
     _set_fallback_image(taom)
-    return render(request, 'menu/detail.html', {'taom': taom})
+    visitor_key = request.session.get("menu_visitor_key")
+    if not visitor_key:
+        visitor_key = str(uuid4())
+        request.session["menu_visitor_key"] = visitor_key
+
+    if request.method == "POST":
+        action = request.POST.get("action")
+        if action == "react":
+            reaction = request.POST.get("reaction")
+            if reaction in (MenuReaction.LIKE, MenuReaction.DISLIKE):
+                MenuReaction.objects.update_or_create(
+                    menu=taom, visitor_key=visitor_key, defaults={"reaction": reaction}
+                )
+                messages.success(request, "Fikringiz qabul qilindi.")
+            else:
+                messages.error(request, "Reaksiyani tanlang.")
+        elif action == "comment":
+            comment_form = MenuCommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.menu = taom
+                comment.name = comment.name.strip() or "Mehmon"
+                comment.body = comment.body.strip()
+                comment.save()
+                messages.success(request, "Fikringiz qo‘shildi. Rahmat!")
+                return redirect(f"{request.path}#comments")
+            messages.error(request, "Fikrni yuborishdan oldin maydonlarni tekshiring.")
+        return redirect(f"{request.path}#feedback")
+
+    context = {
+        "taom": taom,
+        "comment_form": MenuCommentForm(),
+        "comments": taom.comments.all(),
+        "like_count": taom.reactions.filter(reaction=MenuReaction.LIKE).count(),
+        "dislike_count": taom.reactions.filter(reaction=MenuReaction.DISLIKE).count(),
+        "user_reaction": MenuReaction.objects.filter(menu=taom, visitor_key=visitor_key).values_list("reaction", flat=True).first(),
+    }
+    return render(request, 'menu/detail.html', context)
