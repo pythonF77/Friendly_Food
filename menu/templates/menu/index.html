@@ -1,218 +1,103 @@
-<!DOCTYPE html>
+{% load static humanize %}
+<!doctype html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bizning Menyu</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700;9..144,900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --clay: #c1521f;
-    --clay-light: #e8763c;
-    --olive: #2f3b26;
-    --olive-deep: #1c2417;
-    --saffron: #e8a33d;
-    --cream: #f7ede0;
-    --cream-dim: #ecdcc4;
-  }
-
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Manrope', sans-serif; }
-
-  body{
-    background:
-      radial-gradient(ellipse 900px 600px at 15% -5%, rgba(232,163,61,0.35), transparent 60%),
-      radial-gradient(ellipse 800px 700px at 100% 10%, rgba(193,82,31,0.45), transparent 55%),
-      radial-gradient(ellipse 700px 600px at 0% 100%, rgba(232,118,60,0.25), transparent 55%),
-      linear-gradient(160deg, var(--olive-deep) 0%, var(--olive) 55%, #24301c 100%);
-    background-attachment: fixed;
-    color: var(--cream);
-    padding: 56px 20px 90px;
-    min-height: 100vh;
-  }
-
-  .container{ max-width: 1200px; margin: 0 auto; position:relative; z-index:1; }
-
-  h1{
-    text-align:center;
-    font-family:'Fraunces', serif;
-    font-weight:900;
-    font-size: clamp(2rem, 5vw, 3rem);
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    background: linear-gradient(100deg, #fff6ea 0%, var(--saffron) 45%, var(--clay-light) 80%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin-bottom: 18px;
-  }
-
-  .phone-number{
-    text-align:center;
-    margin-bottom: 50px;
-    display:flex;
-    justify-content:center;
-  }
-  .phone-number a{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding: 13px 26px;
-    border-radius: 999px;
-    background: linear-gradient(120deg, var(--clay), var(--clay-light));
-    box-shadow: 0 8px 30px rgba(193,82,31,0.4), inset 0 1px 0 rgba(255,255,255,0.25);
-    font-weight: 700;
-    font-size: 1rem;
-    text-decoration:none;
-    color: #fff6ea;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  .phone-number a:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 12px 36px rgba(193,82,31,0.55), inset 0 1px 0 rgba(255,255,255,0.3);
-  }
-
-  .menu-container{
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 24px;
-    padding: 10px 0;
-  }
-
-  .menu-card{
-    background: linear-gradient(155deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
-    border: 1px solid rgba(232,163,61,0.22);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 14px 40px rgba(0,0,0,0.3);
-    text-decoration: none;
-    color: var(--cream);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  }
-
-  .menu-card:hover{
-    transform: translateY(-6px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-    border-color: rgba(232,163,61,0.45);
-  }
-
-  .card-image-wrapper{
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    position: relative;
-    background-color: rgba(0,0,0,0.2);
-    overflow: hidden;
-  }
-
-  .card-image-wrapper img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-  }
-
-  .no-image{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: var(--cream-dim);
-    font-style: italic;
-    opacity: 0.6;
-    text-align: center;
-    padding: 12px;
-  }
-
-  .card-content{
-    padding: 18px 16px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
-  }
-[7/20/2026 3:48 PM] XUSANBOY/خسنبي: .food-name{
-    margin: 0 0 10px 0;
-    font-family: 'Fraunces', serif;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    color: var(--cream);
-    text-transform: uppercase;
-    min-height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .price-label{
-    margin: 0;
-    font-size: 10.5px;
-    color: rgba(247,237,224,0.5);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-weight: 600;
-  }
-
-  .food-price{
-    margin: 4px 0 0 0;
-    font-size: 17px;
-    font-weight: 800;
-    background: linear-gradient(100deg, var(--saffron), var(--clay-light));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .empty-state{
-    text-align: center;
-    grid-column: 1 / -1;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 1.15rem;
-    color: var(--cream-dim);
-    padding: 60px 20px;
-    background: linear-gradient(155deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    border: 1px solid rgba(232,163,61,0.2);
-    border-radius: 20px;
-  }
-
-  @media (max-width: 992px){ .menu-container{ grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 576px){ .menu-container{ grid-template-columns: repeat(1, minmax(0, 1fr)); } }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e8f6ff">
+  <meta name="description" content="Do‘stlik oshxonasi menyusi — uy taomlari va bugungi narxlar.">
+  <title>Do‘stlik oshxonasi | Menyu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'menu/css/site.css' %}">
+  <script src="{% static 'menu/js/welcome.js' %}" defer></script>
 </head>
 <body>
-  <div class="menu-container">
-  {% for menyu in menyular %}
-    <a href="{% url 'menu_detail' menyu.id %}" class="menu-card">
-      <div class="card-image-wrapper">
-        {% if menyu.image %}
-          <img
-            src="{{ menyu.image.url }}"
-            alt="{{ menyu.name }}"
-            onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
-          >
-          <div class="no-image" hidden>Rasm yuklanmadi</div>
-        {% else %}
-          <div class="no-image">Rasm mavjud emas</div>
-        {% endif %}
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="{% url 'menu_home' %}" aria-label="Do‘stlik oshxonasi — bosh sahifa">
+        <span class="brand-mark" aria-hidden="true">D</span>
+        <span class="brand-name">Do‘stlik <small>oshxonasi</small></span>
+      </a>
+      <nav class="header-nav" aria-label="Asosiy navigatsiya">
+        <a href="#menyu">Menyu</a>
+        <a class="nav-phone" href="tel:+998917570577">+998 91 757 05 77</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> Har kuni yangi taom</p>
+        <h1 id="hero-title">Dasturxonga<br>Do‘stlik ta’mi.</h1>
+        <p class="hero-intro">Sevimli uy taomlaringiz, oshxonamizdan — issiq va mehr bilan.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="tel:+998917570577">Buyurtma uchun qo‘ng‘iroq</a>
+          <a class="button button-quiet" href="#menyu">Menyuni ko‘rish <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <img class="hero-image" src="{% static 'menu/images/devzira-osh.jpg' %}" alt="Do‘stlik oshxonasidan damlangan osh" onerror="this.hidden=true">
+        <div class="hero-stamp" aria-label="Halol va uy ta’mi"><span>Halol</span><i></i><span>Uy ta’mi</span></div>
+      </div>
+      <div class="hero-rule" aria-hidden="true"></div>
+    </section>
+
+    <section class="menu-section" id="menyu" aria-labelledby="menu-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Bugungi tanlov</p>
+          <h2 id="menu-title">Oshxona menyusi</h2>
+        </div>
+        <p class="section-note">Taomni tanlang, narxini ko‘ring.</p>
       </div>
 
-      <div class="card-content">
-        <h3 class="food-name">{{ menyu.name }}</h3>
-        <p class="price-label">Narxi</p>
-        <p class="food-price">{{ menyu.price }} so'm</p>
+      <form class="menu-search" method="get" action="{% url 'menu_home' %}" role="search">
+        <label class="sr-only" for="menu-search-input">Taom nomi bo‘yicha qidirish</label>
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+        <input id="menu-search-input" type="search" name="q" value="{{ query }}" placeholder="Taom nomini yozing">
+        <button type="submit">Qidirish</button>
+      </form>
+
+      <div class="dish-list">
+        {% for menyu in menyular %}
+          <a class="dish" href="{% url 'menu_detail' menyu.id %}">
+            <span class="dish-photo">
+              {% if menyu.image %}
+                <img src="{{ menyu.image.url }}" data-fallback-src="{{ menyu.fallback_image_url }}" alt="{{ menyu.name }}" loading="lazy" onerror="if(this.dataset.fallbackSrc&&!this.dataset.fallbackTried){this.dataset.fallbackTried='1';this.src=this.dataset.fallbackSrc;}else{this.closest('.dish-photo').classList.add('photo-missing');this.remove();}">
+              {% elif menyu.fallback_image_url %}
+                <img src="{{ menyu.fallback_image_url }}" alt="{{ menyu.name }}" loading="lazy">
+              {% else %}
+                <span class="photo-fallback" aria-hidden="true">D</span>
+              {% endif %}
+            </span>
+            <span class="dish-info"><span class="dish-name">{{ menyu.name }}</span><span class="dish-caption">Oshxonamiz taomi</span></span>
+            <span class="dish-price">{{ menyu.price|floatformat:0|intcomma }} <small>so‘m</small></span>
+            <span class="dish-open" aria-hidden="true">↗</span>
+          </a>
+        {% empty %}
+          <div class="empty-state">
+            <span class="empty-mark" aria-hidden="true">⌕</span>
+            {% if query %}
+              <h3>Bu nomdagi taom topilmadi</h3>
+              <p>Boshqa nom bilan qidiring yoki menyuning hammasini ko‘ring.</p>
+              <a href="{% url 'menu_home' %}">Barcha taomlar</a>
+            {% else %}
+              <h3>Menyu hozircha bo‘sh</h3>
+              <p>Yangi taomlar qo‘shilganda shu yerda ko‘rinadi.</p>
+            {% endif %}
+          </div>
+        {% endfor %}
       </div>
-    </a>
-  {% empty %}
-    <p class="empty-state">Hozircha menyuda taomlar yo'q.</p>
-  {% endfor %}
-</div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand brand-footer" href="{% url 'menu_home' %}"><span class="brand-mark" aria-hidden="true">D</span><span class="brand-name">Do‘stlik <small>oshxonasi</small></span></a>
+    <p>Yaxshi taom — yaxshi davra.</p>
+    <a href="tel:+998917570577">+998 91 757 05 77</a>
+  </footer>
 </body>
 </html>

@@ -1,10 +1,71 @@
-{% if taom.image %}
-  <img
-    src="{{ taom.image.url }}"
-    alt="{{ taom.name }}"
-    onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
-  >
-  <div class="no-image" hidden>Rasm yuklanmadi</div>
-{% else %}
-  <div class="no-image">Rasm mavjud emas</div>
-{% endif %}
+{% load static humanize %}
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e8f6ff">
+  <title>{{ taom.name }} | Do‘stlik oshxonasi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'menu/css/site.css' %}">
+</head>
+<body class="detail-page">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="{% url 'menu_home' %}" aria-label="Do‘stlik oshxonasi — bosh sahifa">
+        <span class="brand-mark" aria-hidden="true">D</span>
+        <span class="brand-name">Do‘stlik <small>oshxonasi</small></span>
+      </a>
+      <a class="header-back" href="{% url 'menu_home' %}">← Menyuga qaytish</a>
+    </div>
+  </header>
+  <main class="detail-main">
+    {% if messages %}<div class="feedback-messages" role="status">{% for message in messages %}<p>{{ message }}</p>{% endfor %}</div>{% endif %}
+    <article class="detail-layout">
+      <div class="detail-photo">
+        {% if taom.image %}
+          <img src="{{ taom.image.url }}" data-fallback-src="{{ taom.fallback_image_url }}" alt="{{ taom.name }}" onerror="if(this.dataset.fallbackSrc&&!this.dataset.fallbackTried){this.dataset.fallbackTried='1';this.src=this.dataset.fallbackSrc;}else{this.hidden=true;}">
+        {% elif taom.fallback_image_url %}
+          <img src="{{ taom.fallback_image_url }}" alt="{{ taom.name }}">
+        {% else %}
+          <span class="photo-fallback" aria-hidden="true">D</span>
+        {% endif %}
+      </div>
+      <div class="detail-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> Do‘stlik oshxonasi</p>
+        <h1>{{ taom.name }}</h1>
+        <p class="detail-description">Oshxonamizda mehr bilan tayyorlangan uy taomi.</p>
+        <div class="detail-price-label">Narxi</div>
+        <p class="detail-price">{{ taom.price|floatformat:0|intcomma }} <span>so‘m</span></p>
+        <a class="button button-primary detail-order" href="tel:+998917570577">Buyurtma uchun qo‘ng‘iroq</a>
+        <a class="detail-phone" href="tel:+998917570577">+998 91 757 05 77</a>
+      </div>
+    </article>
+    <section class="feedback-section" id="feedback" aria-labelledby="feedback-title">
+      <div class="feedback-heading"><div><p class="eyebrow">Sizning fikringiz muhim</p><h2 id="feedback-title">Taom sizga yoqdimi?</h2></div><p>Tanlovingiz va izohingiz oshxonamizga yordam beradi.</p></div>
+      <form class="reaction-actions" method="post" action="#feedback">
+        {% csrf_token %}<input type="hidden" name="action" value="react">
+        <button class="reaction-button{% if user_reaction == 'like' %} is-selected{% endif %}" type="submit" name="reaction" value="like" aria-pressed="{% if user_reaction == 'like' %}true{% else %}false{% endif %}"><span aria-hidden="true">♡</span> Yoqdi <strong>{{ like_count }}</strong></button>
+        <button class="reaction-button{% if user_reaction == 'dislike' %} is-selected{% endif %}" type="submit" name="reaction" value="dislike" aria-pressed="{% if user_reaction == 'dislike' %}true{% else %}false{% endif %}"><span aria-hidden="true">♧</span> Yoqmadi <strong>{{ dislike_count }}</strong></button>
+      </form>
+      <div class="comments-layout" id="comments">
+        <div><h3>Fikr qoldiring</h3><p class="comment-hint">Taom haqidagi taassurotingizni yozing.</p>
+          <form class="comment-form" method="post" action="#comments">
+            {% csrf_token %}<input type="hidden" name="action" value="comment">
+            <label for="id_name">Ismingiz <span>(ixtiyoriy)</span></label>{{ comment_form.name }}
+            <label for="id_body">Fikringiz</label>{{ comment_form.body }}
+            <button class="button button-primary" type="submit">Fikrni yuborish</button>
+          </form>
+        </div>
+        <div class="comment-feed"><h3>Mijozlar fikri <span>{{ comments|length }}</span></h3>
+          {% for comment in comments %}<article class="comment-item"><div class="comment-meta"><strong>{{ comment.name }}</strong><time datetime="{{ comment.created_at|date:'c' }}">{{ comment.created_at|date:'d.m.Y' }}</time></div><p>{{ comment.body|linebreaksbr }}</p></article>
+          {% empty %}<p class="comment-empty">Hozircha fikrlar yo‘q. Birinchi bo‘lib yozing.</p>{% endfor %}
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><p>Yaxshi taom — yaxshi davra.</p><a href="{% url 'menu_home' %}">Menyuga qaytish</a></footer>
+</body>
+</html>
