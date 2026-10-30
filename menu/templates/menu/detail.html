@@ -25,7 +25,9 @@
     <article class="detail-layout">
       <div class="detail-photo">
         {% if taom.image %}
-          <img src="{{ taom.image.url }}" alt="{{ taom.name }}" onerror="this.hidden=true">
+          <img src="{{ taom.image.url }}" data-fallback-src="{{ taom.fallback_image_url }}" alt="{{ taom.name }}" onerror="if(this.dataset.fallbackSrc&&!this.dataset.fallbackTried){this.dataset.fallbackTried='1';this.src=this.dataset.fallbackSrc;}else{this.hidden=true;}">
+        {% elif taom.fallback_image_url %}
+          <img src="{{ taom.fallback_image_url }}" alt="{{ taom.name }}">
         {% else %}
           <span class="photo-fallback" aria-hidden="true">D</span>
         {% endif %}

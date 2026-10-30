@@ -65,7 +65,9 @@
           <a class="dish" href="{% url 'menu_detail' menyu.id %}">
             <span class="dish-photo">
               {% if menyu.image %}
-                <img src="{{ menyu.image.url }}" alt="{{ menyu.name }}" loading="lazy" onerror="this.closest('.dish-photo').classList.add('photo-missing');this.remove()">
+                <img src="{{ menyu.image.url }}" data-fallback-src="{{ menyu.fallback_image_url }}" alt="{{ menyu.name }}" loading="lazy" onerror="if(this.dataset.fallbackSrc&&!this.dataset.fallbackTried){this.dataset.fallbackTried='1';this.src=this.dataset.fallbackSrc;}else{this.closest('.dish-photo').classList.add('photo-missing');this.remove();}">
+              {% elif menyu.fallback_image_url %}
+                <img src="{{ menyu.fallback_image_url }}" alt="{{ menyu.name }}" loading="lazy">
               {% else %}
                 <span class="photo-fallback" aria-hidden="true">D</span>
               {% endif %}
