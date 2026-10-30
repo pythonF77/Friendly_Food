@@ -1,12 +1,14 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Menu  # Modelingizni chaqirib olamiz
+from .models import Menu
 
 def Home(request):
-    menyular = Menu.objects.all()
+    query = request.GET.get('q', '').strip()
+    menyular = Menu.objects.all().order_by('name')
+    if query:
+        menyular = menyular.filter(name__icontains=query)
 
-    # Ma'lumotlarni HTML faylga 'menyular' degan nom bilan uzatamiz
-    return render(request, 'menu/index.html', {'menyular': menyular})
+    return render(request, 'menu/index.html', {'menyular': menyular, 'query': query})
 
-def Menu_detail(request,pk):
-    taom = get_object_or_404(Menu, id=pk)
-    return render(request,'menu/detail.html', {'taom': taom })
+def Menu_detail(request, pk):
+    taom = get_object_or_404(Menu, pk=pk)
+    return render(request, 'menu/detail.html', {'taom': taom})

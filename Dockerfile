@@ -1,5 +1,5 @@
 # 1. Python-ning eng barqaror va mos versiyasini tanlaymiz
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 # 2. Terminalda loglar darhol ko'rinishi va ortiqcha fayllar yozilmasligi sozlamalari
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -24,5 +24,5 @@ COPY . /app/
 # 7. Portni ochamiz
 EXPOSE 10000
 
-# 8. Loyihani ishga tushirish (avval migratsiya qilinadi, keyin gunicorn ishlaydi)
-CMD ["sh", "-c", "python manage.py migrate && gunicorn my_admin.wsgi:application --bind 0.0.0.0:10000"]
+# Render PORT qiymatidan foydalanib, avval jadvallarni yangilaymiz.
+CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && exec gunicorn my_admin.wsgi:application --bind 0.0.0.0:${PORT:-10000} --access-logfile - --error-logfile -"]

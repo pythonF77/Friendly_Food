@@ -1,10 +1,46 @@
-{% if taom.image %}
-  <img
-    src="{{ taom.image.url }}"
-    alt="{{ taom.name }}"
-    onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
-  >
-  <div class="no-image" hidden>Rasm yuklanmadi</div>
-{% else %}
-  <div class="no-image">Rasm mavjud emas</div>
-{% endif %}
+{% load static humanize %}
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eef2ef">
+  <title>{{ taom.name }} | Do‘stlik oshxonasi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'menu/css/site.css' %}">
+</head>
+<body class="detail-page">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="{% url 'menu_home' %}" aria-label="Do‘stlik oshxonasi — bosh sahifa">
+        <span class="brand-mark" aria-hidden="true">D</span>
+        <span class="brand-name">Do‘stlik <small>oshxonasi</small></span>
+      </a>
+      <a class="header-back" href="{% url 'menu_home' %}">← Menyuga qaytish</a>
+    </div>
+  </header>
+  <main class="detail-main">
+    <article class="detail-layout">
+      <div class="detail-photo">
+        {% if taom.image %}
+          <img src="{{ taom.image.url }}" alt="{{ taom.name }}" onerror="this.hidden=true">
+        {% else %}
+          <span class="photo-fallback" aria-hidden="true">D</span>
+        {% endif %}
+      </div>
+      <div class="detail-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> Do‘stlik oshxonasi</p>
+        <h1>{{ taom.name }}</h1>
+        <p class="detail-description">Oshxonamizda mehr bilan tayyorlangan uy taomi.</p>
+        <div class="detail-price-label">Narxi</div>
+        <p class="detail-price">{{ taom.price|floatformat:0|intcomma }} <span>so‘m</span></p>
+        <a class="button button-primary detail-order" href="tel:+998917570577">Buyurtma uchun qo‘ng‘iroq</a>
+        <a class="detail-phone" href="tel:+998917570577">+998 91 757 05 77</a>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer"><p>Yaxshi taom — yaxshi davra.</p><a href="{% url 'menu_home' %}">Menyuga qaytish</a></footer>
+</body>
+</html>

@@ -1,19 +1,37 @@
+"""Create a first Django admin account from environment variables."""
+
 import os
+
 import django
 
-# Django muhitini sozlash (loyihangiz nomini yozing, masalan: my_admin.settings)
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'my_admin.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "my_admin.settings")
 django.setup()
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
-# O'zingiz xohlagan login, email va parolni shu yerga yozing
-username = 'admin'
-email = 'admin@gmail.com'
-password = 'admin'
 
-if not User.objects.filter(username=username).exists():
-    User.objects.create_superuser(username, email, password)
-    print("Superuser muvaffaqiyatli yaratildi!")
-else:
-    print("Bu foydalanuvchi allaqachon mavjud!")
+def main():
+    username = os.environ.get("DJANGO_SUPERUSER_USERNAME", "").strip()
+    email = os.environ.get("DJANGO_SUPERUSER_EMAIL", "").strip()
+    password = os.environ.get("DJANGO_SUPERUSER_PASSWORD", "")
+    if not username or not email or not password:
+        raise SystemExit(
+            "Set DJANGO_SUPERUSER_USERNAME, DJANGO_SUPERUSER_EMAIL, and "
+            "DJANGO_SUPERUSER_PASSWORD before running this script."
+        )
+
+    User = get_user_model()
+    user, created = User.objects.get_or_create(
+        username=username,
+        defaults={"email": email, "is_staff": True, "is_superuser": True, "is_active": True},
+    )
+    if not created:
+        raise SystemExit("That username already exists. Use the existing account or choose another username.")
+
+    user.set_password(password)
+    user.save(update_fields=["password"])
+    print("Admin account created.")
+
+
+if __name__ == "__main__":
+    main()
