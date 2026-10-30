@@ -15,10 +15,8 @@ def main():
     email = os.environ.get("DJANGO_SUPERUSER_EMAIL", "").strip()
     password = os.environ.get("DJANGO_SUPERUSER_PASSWORD", "")
     if not username or not email or not password:
-        raise SystemExit(
-            "Set DJANGO_SUPERUSER_USERNAME, DJANGO_SUPERUSER_EMAIL, and "
-            "DJANGO_SUPERUSER_PASSWORD before running this script."
-        )
+        print("Admin setup skipped; Django superuser environment variables are not set.")
+        return
 
     User = get_user_model()
     user, created = User.objects.get_or_create(
@@ -26,7 +24,8 @@ def main():
         defaults={"email": email, "is_staff": True, "is_superuser": True, "is_active": True},
     )
     if not created:
-        raise SystemExit("That username already exists. Use the existing account or choose another username.")
+        print("Admin account already exists; leaving its password and permissions unchanged.")
+        return
 
     user.set_password(password)
     user.save(update_fields=["password"])

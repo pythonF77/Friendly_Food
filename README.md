@@ -24,18 +24,17 @@ Agar Render’da Native Python service ishlatayotgan bo‘lsangiz:
 - Start command: `gunicorn my_admin.wsgi:application --bind 0.0.0.0:$PORT`
 - `.python-version` Django 6 bilan mos Python 3.12 versiyasini belgilaydi.
 
-## Admin paneliga kirish
+## Render bepul tarifida admin hisobini yaratish
 
-Manzil: `https://sayt-manzili/admin/`
+Render’ning bepul web service’ida Shell bo‘lmagani uchun admin hisobi birinchi ishga tushishda quyidagi maxfiy Environment qiymatlari orqali yaratiladi:
 
-Render Dashboard’dan web service Shell’ini ochib, bir marta migratsiya va admin hisobini yarating:
+- `DJANGO_SUPERUSER_USERNAME`
+- `DJANGO_SUPERUSER_EMAIL`
+- `DJANGO_SUPERUSER_PASSWORD`
 
-```sh
-python manage.py migrate --noinput
-python manage.py createsuperuser
-```
+Ularni Render Dashboard’dagi **Web Service → Environment** bo‘limiga kiriting. Docker start jarayoni avval migratsiyalarni qo‘llaydi, so‘ng admin foydalanuvchisini yaratadi va saytni ishga tushiradi. Shu username bazada allaqachon bo‘lsa, qayta yaratmaydi va parolini o‘zgartirmaydi. Birinchi deploy muvaffaqiyatli bo‘lgach, parolni Environment’dan olib tashlashingiz mumkin.
 
-`createsuperuser` sizdan login, email va parolni so‘raydi. Bu buyruq Render’dagi `DATABASE_URL` orqali mavjud bazaga ulanadi. Admin hisobi bazada oldindan bo‘lsa, yangisini yaratish shart emas.
+Kirish manzili: `https://sayt-manzili/admin/`
 
 ## Taom rasmlari
 

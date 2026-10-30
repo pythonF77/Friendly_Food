@@ -25,4 +25,4 @@ COPY . /app/
 EXPOSE 10000
 
 # Render PORT qiymatidan foydalanib, avval jadvallarni yangilaymiz.
-CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && exec gunicorn my_admin.wsgi:application --bind 0.0.0.0:${PORT:-10000} --access-logfile - --error-logfile -"]
+CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && python create_admin.py && exec gunicorn my_admin.wsgi:application --bind 0.0.0.0:${PORT:-10000} --access-logfile - --error-logfile -"]

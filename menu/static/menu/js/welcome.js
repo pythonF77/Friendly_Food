@@ -1,12 +1,20 @@
 (function () {
-  const greetingKey = "dostlik-welcome-spoken-v1";
-  const greeting = "Assalomu alaykum, xush kelibsiz. O‘zingizga yoqqan ovqatni tanlang va o‘z fikrlaringizni qoldiring.";
+  const greetingKey = "dostlik-welcome-spoken-v3";
+  const greeting = "Assalomu alaykum! Do‘stlik oshxonamiz saytiga xush kelibsiz. O‘zingizga yoqqan taomni tanlang va fikrlaringizni biz bilan bo‘lishing. Va yana bir narsa, yoqimli ishtaha!";
 
   function speakOnce() {
     if (localStorage.getItem(greetingKey)) return;
     localStorage.setItem(greetingKey, "1");
-    if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) return;
 
+    const welcomeAudio = new Audio("/static/menu/audio/welcome.mp3");
+    welcomeAudio.play().catch(() => {
+      if ("speechSynthesis" in window && "SpeechSynthesisUtterance" in window) {
+        speakWithBrowserVoice();
+      }
+    });
+  }
+
+  function speakWithBrowserVoice() {
     const voices = window.speechSynthesis.getVoices();
     const uzbekVoice = voices.find((voice) => voice.lang.toLowerCase().startsWith("uz"));
     const femaleVoice = voices.find((voice) => /female|woman|zira|dilnoza|madina|gulnora/i.test(voice.name));
