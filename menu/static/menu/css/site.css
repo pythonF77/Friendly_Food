@@ -407,8 +407,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .detail-menu-section { width: min(920px, calc(100% - 48px)); margin: 48px auto 0; padding: 34px 0 0; border-top: 1px solid var(--line); }
 .detail-menu-section .section-heading { margin-bottom: 18px; }
 .detail-menu-section .section-heading h2 { max-width: 560px; font: 600 clamp(27px, 4vw, 36px)/1.12 var(--serif); letter-spacing: -.035em; }
-.detail-menu-section .dish { min-height: 92px; }
-.detail-menu-section .dish-photo { width: 68px; height: 68px; }
+.detail-menu-section .dish-list { border: 0; }
+.detail-menu-section .dish { min-height: 92px; margin: 9px 0; padding: 11px 14px; background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 4px 14px rgba(23, 85, 106, .045); }
+.detail-menu-section .dish:hover { background: #eaf7ff; border-color: #a9d4eb; box-shadow: 0 9px 22px rgba(40, 127, 178, .11); transform: translateY(-1px); }
+.detail-menu-section .dish-photo { width: 68px; height: 68px; border-radius: 8px; }
+.detail-menu-section .dish-open { width: 30px; height: 30px; display: grid; place-items: center; color: var(--tile-deep); background: #e8f6ff; border-radius: 50%; text-align: center; }
+.detail-menu-section .dish:hover .dish-open { color: #fff; background: var(--tile); }
 
 @media (max-width: 700px) {
   .detail-menu-section { width: calc(100% - 36px); margin-top: 38px; padding-top: 26px; }
