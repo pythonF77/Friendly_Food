@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Admin akkauntini yaratish · Do‘stlik oshxonasi</title>
+  <style>
+    :root { color-scheme: light; --navy:#123d55; --blue:#147da1; --sky:#e8f7fb; --line:#d4e5ea; --ink:#183646; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; display:grid; place-items:center; padding:24px; background:linear-gradient(145deg,#effafd,#f8fbfc 55%,#eaf5fa); color:var(--ink); font:16px/1.5 system-ui,sans-serif; }
+    main { width:min(100%,520px); padding:clamp(24px,6vw,42px); background:#fff; border:1px solid var(--line); border-radius:24px; box-shadow:0 24px 70px #123d5517; }
+    .mark { display:grid; place-items:center; width:52px; height:52px; border-radius:17px; background:var(--sky); color:var(--blue); font-size:26px; }
+    h1 { margin:22px 0 8px; color:var(--navy); font-family:Georgia,serif; font-size:clamp(27px,6vw,36px); line-height:1.15; }
+    p { margin:0 0 22px; color:#607783; }
+    label { display:block; margin:16px 0 7px; font-weight:650; font-size:14px; }
+    input { width:100%; padding:13px 14px; border:1px solid #cbdde3; border-radius:11px; color:var(--ink); font:inherit; outline:none; }
+    input:focus { border-color:var(--blue); box-shadow:0 0 0 3px #147da11e; }
+    button { width:100%; margin-top:24px; padding:14px 18px; border:0; border-radius:11px; background:var(--navy); color:white; font:700 16px system-ui,sans-serif; cursor:pointer; }
+    button:hover { background:#0d5b79; }
+    .helptext { display:block; margin-top:5px; color:#738892; font-size:13px; }
+    .errorlist { margin:6px 0 0; padding-left:20px; color:#a12c37; font-size:14px; }
+    .errors { margin:14px 0; padding:12px 14px; border-radius:10px; background:#fff2f1; color:#9c2b35; }
+    .csrf { display:none; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark" aria-hidden="true">✦</div>
+    <h1>Boshqaruv akkauntini yarating</h1>
+    <p>Bu bir martalik sahifa. Admin login nomi va parolini o‘zingiz belgilang. Sahifa akkaunt yaratilgach avtomatik yopiladi.</p>
+    <form method="post" autocomplete="off">
+      {% csrf_token %}
+      {% if form.non_field_errors %}<div class="errors">{{ form.non_field_errors }}</div>{% endif %}
+      {% for field in form %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}<span class="helptext">{{ field.help_text|safe }}</span>{% endif %}
+        {{ field.errors }}
+      {% endfor %}
+      <button type="submit">Admin akkauntini yaratish</button>
+    </form>
+  </main>
+</body>
+</html>

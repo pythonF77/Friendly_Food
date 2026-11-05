@@ -13,6 +13,7 @@ def env_bool(name, default=False):
 
 
 DEBUG = env_bool("DEBUG", False)
+ADMIN_SETUP_TOKEN = os.environ.get("ADMIN_SETUP_TOKEN", "")
 SECRET_KEY = os.environ.get("SECRET_KEY", "")
 if not SECRET_KEY:
     if DEBUG:
