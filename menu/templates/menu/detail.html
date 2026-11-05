@@ -43,6 +43,35 @@
         <a class="detail-phone" href="tel:+998917570577">+998 91 757 05 77</a>
       </div>
     </article>
+    {% if boshqa_taomlar %}
+    <section class="menu-section detail-menu-section" id="boshqa-taomlar" aria-labelledby="other-dishes-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Menyuni davom ettiring</p>
+          <h2 id="other-dishes-title">Yana qanday taomlar bor?</h2>
+        </div>
+        <p class="section-note">Bosh sahifaga qaytmasdan boshqa taomni tanlang.</p>
+      </div>
+      <div class="dish-list">
+        {% for menyu in boshqa_taomlar %}
+        <a class="dish" href="{% url 'menu_detail' menyu.id %}">
+          <span class="dish-photo">
+            {% if menyu.image %}
+              <img src="{{ menyu.image.url }}" data-fallback-src="{{ menyu.fallback_image_url }}" alt="{{ menyu.name }}" loading="lazy" onerror="if(this.dataset.fallbackSrc&&!this.dataset.fallbackTried){this.dataset.fallbackTried='1';this.src=this.dataset.fallbackSrc;}else{this.closest('.dish-photo').classList.add('photo-missing');this.remove();}">
+            {% elif menyu.fallback_image_url %}
+              <img src="{{ menyu.fallback_image_url }}" alt="{{ menyu.name }}" loading="lazy">
+            {% else %}
+              <span class="photo-fallback" aria-hidden="true">D</span>
+            {% endif %}
+          </span>
+          <span class="dish-info"><span class="dish-name">{{ menyu.name }}</span><span class="dish-caption">Oshxonamiz taomi</span></span>
+          <span class="dish-price">{{ menyu.price|floatformat:0|intcomma }} <small>so‘m</small></span>
+          <span class="dish-open" aria-hidden="true">↗</span>
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
     <section class="feedback-section" id="feedback" aria-labelledby="feedback-title">
       <div class="feedback-heading"><div><p class="eyebrow">Sizning fikringiz muhim</p><h2 id="feedback-title">Taom sizga yoqdimi?</h2></div><p>Tanlovingiz va izohingiz oshxonamizga yordam beradi.</p></div>
       <form class="reaction-actions" method="post" action="#feedback">

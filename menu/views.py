@@ -66,6 +66,8 @@ def Home(request):
 def Menu_detail(request, pk):
     taom = get_object_or_404(Menu, pk=pk)
     _set_fallback_image(taom)
+    boshqa_taomlar = Menu.objects.exclude(pk=taom.pk).order_by("name")
+    boshqa_taomlar = [_set_fallback_image(item) for item in boshqa_taomlar]
     visitor_key = request.session.get("menu_visitor_key")
     if not visitor_key:
         visitor_key = str(uuid4())
@@ -97,6 +99,7 @@ def Menu_detail(request, pk):
 
     context = {
         "taom": taom,
+        "boshqa_taomlar": boshqa_taomlar,
         "comment_form": MenuCommentForm(),
         "comments": taom.comments.all(),
         "like_count": taom.reactions.filter(reaction=MenuReaction.LIKE).count(),
