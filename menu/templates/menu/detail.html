@@ -50,6 +50,12 @@
         <button class="reaction-button{% if user_reaction == 'like' %} is-selected{% endif %}" type="submit" name="reaction" value="like" aria-pressed="{% if user_reaction == 'like' %}true{% else %}false{% endif %}"><span aria-hidden="true">♡</span> Yoqdi <strong>{{ like_count }}</strong></button>
         <button class="reaction-button{% if user_reaction == 'dislike' %} is-selected{% endif %}" type="submit" name="reaction" value="dislike" aria-pressed="{% if user_reaction == 'dislike' %}true{% else %}false{% endif %}"><span aria-hidden="true">♧</span> Yoqmadi <strong>{{ dislike_count }}</strong></button>
       </form>
+      <div class="share-actions" aria-label="Taomni ulashish">
+        <button class="share-button share-native" id="share-native" type="button"><span aria-hidden="true">↗</span> Boshqa ilovada</button>
+        <a class="share-button share-telegram" id="share-telegram" href="https://t.me/share/url" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">➤</span> Telegram</a>
+        <button class="share-button share-copy" id="share-copy" type="button"><span aria-hidden="true">⧉</span> Havolani nusxalash</button>
+      </div>
+      <p class="share-status" id="share-status" role="status" aria-live="polite"></p>
       <div class="comments-layout" id="comments">
         <div><h3>Fikr qoldiring</h3><p class="comment-hint">Taom haqidagi taassurotingizni yozing.</p>
           <form class="comment-form" method="post" action="#comments">
@@ -96,5 +102,6 @@
     {% endif %}
   </main>
   <footer class="site-footer"><p>Yaxshi taom — yaxshi davra.</p><a href="{% url 'menu_home' %}">Menyuga qaytish</a></footer>
+  <script src="{% static 'menu/js/share-dish.js' %}" defer></script>
 </body>
 </html>
