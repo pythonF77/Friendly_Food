@@ -8,6 +8,9 @@ class MenuAdmin(admin.ModelAdmin):
     ordering = ('name',)
     list_per_page = 25
 
+    class Media:
+        js = ("menu/js/admin-image-preview.js",)
+
 
 @admin.register(MenuComment)
 class MenuCommentAdmin(admin.ModelAdmin):
