@@ -43,6 +43,28 @@
         <a class="detail-phone" href="tel:+998917570577">+998 91 757 05 77</a>
       </div>
     </article>
+    <section class="feedback-section" id="feedback" aria-labelledby="feedback-title">
+      <div class="feedback-heading"><div><p class="eyebrow">Sizning fikringiz muhim</p><h2 id="feedback-title">Taom sizga yoqdimi?</h2></div><p>Tanlovingiz va izohingiz oshxonamizga yordam beradi.</p></div>
+      <form class="reaction-actions" method="post" action="#feedback">
+        {% csrf_token %}<input type="hidden" name="action" value="react">
+        <button class="reaction-button{% if user_reaction == 'like' %} is-selected{% endif %}" type="submit" name="reaction" value="like" aria-pressed="{% if user_reaction == 'like' %}true{% else %}false{% endif %}"><span aria-hidden="true">♡</span> Yoqdi <strong>{{ like_count }}</strong></button>
+        <button class="reaction-button{% if user_reaction == 'dislike' %} is-selected{% endif %}" type="submit" name="reaction" value="dislike" aria-pressed="{% if user_reaction == 'dislike' %}true{% else %}false{% endif %}"><span aria-hidden="true">♧</span> Yoqmadi <strong>{{ dislike_count }}</strong></button>
+      </form>
+      <div class="comments-layout" id="comments">
+        <div><h3>Fikr qoldiring</h3><p class="comment-hint">Taom haqidagi taassurotingizni yozing.</p>
+          <form class="comment-form" method="post" action="#comments">
+            {% csrf_token %}<input type="hidden" name="action" value="comment">
+            <label for="id_name">Ismingiz <span>(ixtiyoriy)</span></label>{{ comment_form.name }}
+            <label for="id_body">Fikringiz</label>{{ comment_form.body }}
+            <button class="button button-primary" type="submit">Fikrni yuborish</button>
+          </form>
+        </div>
+        <div class="comment-feed"><h3>Mijozlar fikri <span>{{ comments|length }}</span></h3>
+          {% for comment in comments %}<article class="comment-item"><div class="comment-meta"><strong>{{ comment.name }}</strong><time datetime="{{ comment.created_at|date:'c' }}">{{ comment.created_at|date:'d.m.Y' }}</time></div><p>{{ comment.body|linebreaksbr }}</p></article>
+          {% empty %}<p class="comment-empty">Hozircha fikrlar yo‘q. Birinchi bo‘lib yozing.</p>{% endfor %}
+        </div>
+      </div>
+    </section>
     {% if boshqa_taomlar %}
     <section class="menu-section detail-menu-section" id="boshqa-taomlar" aria-labelledby="other-dishes-title">
       <div class="section-heading">
@@ -72,28 +94,6 @@
       </div>
     </section>
     {% endif %}
-    <section class="feedback-section" id="feedback" aria-labelledby="feedback-title">
-      <div class="feedback-heading"><div><p class="eyebrow">Sizning fikringiz muhim</p><h2 id="feedback-title">Taom sizga yoqdimi?</h2></div><p>Tanlovingiz va izohingiz oshxonamizga yordam beradi.</p></div>
-      <form class="reaction-actions" method="post" action="#feedback">
-        {% csrf_token %}<input type="hidden" name="action" value="react">
-        <button class="reaction-button{% if user_reaction == 'like' %} is-selected{% endif %}" type="submit" name="reaction" value="like" aria-pressed="{% if user_reaction == 'like' %}true{% else %}false{% endif %}"><span aria-hidden="true">♡</span> Yoqdi <strong>{{ like_count }}</strong></button>
-        <button class="reaction-button{% if user_reaction == 'dislike' %} is-selected{% endif %}" type="submit" name="reaction" value="dislike" aria-pressed="{% if user_reaction == 'dislike' %}true{% else %}false{% endif %}"><span aria-hidden="true">♧</span> Yoqmadi <strong>{{ dislike_count }}</strong></button>
-      </form>
-      <div class="comments-layout" id="comments">
-        <div><h3>Fikr qoldiring</h3><p class="comment-hint">Taom haqidagi taassurotingizni yozing.</p>
-          <form class="comment-form" method="post" action="#comments">
-            {% csrf_token %}<input type="hidden" name="action" value="comment">
-            <label for="id_name">Ismingiz <span>(ixtiyoriy)</span></label>{{ comment_form.name }}
-            <label for="id_body">Fikringiz</label>{{ comment_form.body }}
-            <button class="button button-primary" type="submit">Fikrni yuborish</button>
-          </form>
-        </div>
-        <div class="comment-feed"><h3>Mijozlar fikri <span>{{ comments|length }}</span></h3>
-          {% for comment in comments %}<article class="comment-item"><div class="comment-meta"><strong>{{ comment.name }}</strong><time datetime="{{ comment.created_at|date:'c' }}">{{ comment.created_at|date:'d.m.Y' }}</time></div><p>{{ comment.body|linebreaksbr }}</p></article>
-          {% empty %}<p class="comment-empty">Hozircha fikrlar yo‘q. Birinchi bo‘lib yozing.</p>{% endfor %}
-        </div>
-      </div>
-    </section>
   </main>
   <footer class="site-footer"><p>Yaxshi taom — yaxshi davra.</p><a href="{% url 'menu_home' %}">Menyuga qaytish</a></footer>
 </body>
