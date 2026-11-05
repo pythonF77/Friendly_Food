@@ -24,12 +24,6 @@
     window.speechSynthesis.speak(utterance);
   }
 
-  function speakOnce(event) {
-    if (event.target.closest?.("#welcome-audio-button")) return;
-    playGreeting();
-  }
-
-  window.addEventListener("pointerdown", speakOnce, { once: true, passive: true });
-  window.addEventListener("keydown", speakOnce, { once: true });
+  // Play only when the visitor explicitly presses the greeting button.
   replayButton?.addEventListener("click", playGreeting);
 })();
