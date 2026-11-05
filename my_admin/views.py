@@ -1,13 +1,17 @@
 import secrets
+import mimetypes
+from pathlib import Path
 
 from django import forms
+from django.core.exceptions import SuspiciousFileOperation
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.password_validation import validate_password
-from django.db import transaction
-from django.http import HttpResponse
-from django.shortcuts import render
 from django.conf import settings
+from django.db import transaction
+from django.http import FileResponse, Http404, HttpResponse
+from django.shortcuts import render
+from django.utils._os import safe_join
 
 
 User = get_user_model()
@@ -67,3 +71,19 @@ def setup_admin(request):
         return render(request, "admin_setup_success.html")
 
     return render(request, "admin_setup.html", {"form": form})
+
+
+def serve_uploaded_image(request, path):
+    if Path(path).suffix.lower() not in {".jpg", ".jpeg", ".png", ".webp"}:
+        raise Http404
+
+    try:
+        image_path = Path(safe_join(settings.MEDIA_ROOT, path))
+    except (TypeError, ValueError, SuspiciousFileOperation):
+        raise Http404
+
+    if not image_path.is_file():
+        raise Http404
+
+    content_type = mimetypes.guess_type(image_path.name)[0] or "application/octet-stream"
+    return FileResponse(image_path.open("rb"), content_type=content_type)
