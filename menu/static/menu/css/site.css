@@ -59,6 +59,20 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .brand-name small { margin-top: 3px; color: var(--muted); font-size: 11px; font-weight: 500; letter-spacing: .08em; }
 .header-nav { display: flex; align-items: center; gap: 30px; }
 .header-nav a, .header-back { text-decoration: none; font-size: 14px; font-weight: 600; }
+.welcome-audio-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--tile);
+  background: var(--paper);
+  font: 600 13px/1 var(--sans);
+  cursor: pointer;
+}
+.welcome-audio-button:hover { border-color: var(--tile); background: #e8f6ff; }
 .header-nav a:first-child { color: var(--muted); }
 .header-nav a:hover, .header-back:hover { color: var(--pomegranate); }
 .nav-phone { color: var(--tile); }
@@ -257,9 +271,11 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 @media (max-width: 700px) {
   .header-inner, .hero, .menu-section, .site-footer { width: min(100% - 36px, 540px); }
   .header-inner { min-height: 68px; }
-  .header-nav { gap: 14px; }
+  .header-nav { gap: 10px; }
   .header-nav a:first-child { display: none; }
   .nav-phone { font-size: 12px !important; }
+  .welcome-audio-button { width: 36px; min-height: 36px; justify-content: center; padding: 0; }
+  .welcome-audio-label { display: none; }
   .hero { grid-template-columns: 1fr; gap: 24px; padding-block: 43px 34px; }
   .hero-copy { padding: 0; }
   .hero h1 { font-size: clamp(48px, 13vw, 68px); }

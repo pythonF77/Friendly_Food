@@ -1,11 +1,8 @@
 (function () {
-  const greetingKey = "dostlik-welcome-spoken-v3";
   const greeting = "Assalomu alaykum! Do‘stlik oshxonamiz saytiga xush kelibsiz. O‘zingizga yoqqan taomni tanlang va fikrlaringizni biz bilan bo‘lishing. Va yana bir narsa, yoqimli ishtaha!";
+  const replayButton = document.getElementById("welcome-audio-button");
 
-  function speakOnce() {
-    if (localStorage.getItem(greetingKey)) return;
-    localStorage.setItem(greetingKey, "1");
-
+  function playGreeting() {
     const welcomeAudio = new Audio("/static/menu/audio/welcome.mp3");
     welcomeAudio.play().catch(() => {
       if ("speechSynthesis" in window && "SpeechSynthesisUtterance" in window) {
@@ -27,6 +24,12 @@
     window.speechSynthesis.speak(utterance);
   }
 
+  function speakOnce(event) {
+    if (event.target.closest?.("#welcome-audio-button")) return;
+    playGreeting();
+  }
+
   window.addEventListener("pointerdown", speakOnce, { once: true, passive: true });
   window.addEventListener("keydown", speakOnce, { once: true });
+  replayButton?.addEventListener("click", playGreeting);
 })();

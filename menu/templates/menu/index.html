@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'menu/css/site.css' %}">
-  <script src="{% static 'menu/js/welcome.js' %}" defer></script>
+  <link rel="stylesheet" href="{% static 'menu/css/site.css' %}?v=20261101">
+  <script src="{% static 'menu/js/welcome.js' %}?v=20261101-2" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -22,6 +22,9 @@
       </a>
       <nav class="header-nav" aria-label="Asosiy navigatsiya">
         <a href="#menyu">Menyu</a>
+        <button class="welcome-audio-button" id="welcome-audio-button" type="button" aria-label="Salomlashuvni eshitish">
+          <span aria-hidden="true">🔊</span><span class="welcome-audio-label">Salomlashuv</span>
+        </button>
         <a class="nav-phone" href="tel:+998917570577">+998 91 757 05 77</a>
       </nav>
     </div>
